@@ -9,9 +9,18 @@ export function loadThemeButton() {
 }
 
 function toggleTheme() {
-  const html = document.documentElement
-  const nextTheme = html.dataset.theme === "dark" ? "light" : "dark"
+  const html = document.documentElement;
+  const nextTheme = html.dataset.theme === "dark" ? "light" : "dark";
 
-  html.dataset.theme = nextTheme
-  localStorage.setItem("theme", nextTheme)
+  // Add animation class BEFORE changing theme
+  html.classList.add('theme-changing');
+
+  // Change theme
+  html.dataset.theme = nextTheme;
+  localStorage.setItem("theme", nextTheme);
+
+  // Remove animation class after animation completes
+  setTimeout(() => {
+    html.classList.remove('theme-changing');
+  }, 500); // Match animation duration
 }
