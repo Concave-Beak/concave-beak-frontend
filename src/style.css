@@ -1,118 +1,208 @@
+/* ==========================================================================
+   CSS Variables & Theme Definitions
+   ========================================================================== */
 :root {
-  --primary-color-900: #e0fcf4;
-  --primary-color-800: #b0f2df;
-  --primary-color-700: #76dbbe;
-  --primary-color-600: #41bf9b;
+  /* Primary Color Scale */
+  --primary-color-100: #00110c;
+  --primary-color-200: #01281d;
+  --primary-color-300: #074f3a;
+  --primary-color-400: #117a5c;
   --primary-color-500: #29ab87;
-  --primary-color-400: #17916e;
-  --primary-color-300: #0b7053;
-  --primary-color-200: #03513b;
-  --primary-color-100: #002d20;
+  --primary-color-600: #41bf9b;
+  --primary-color-700: #76dbbe;
+  --primary-color-800: #b0f2df;
+  --primary-color-900: #e0fcf4;
 
-  --secondary-color-900: #d9f4fc;
-  --secondary-color-800: #a6dded;
-  --secondary-color-700: #6fc4db;
-  --secondary-color-600: #43a6c1;
-  --secondary-color-500: #298eaa;
-  --secondary-color-400: #13687f;
-  --secondary-color-300: #044051;
-  --secondary-color-200: #001e26;
+  /* Secondary Color Scale */
   --secondary-color-100: #000e11;
+  --secondary-color-200: #001e26;
+  --secondary-color-300: #044051;
+  --secondary-color-400: #13687f;
+  --secondary-color-500: #298eaa;
+  --secondary-color-600: #43a6c1;
+  --secondary-color-700: #6fc4db;
+  --secondary-color-800: #a6dded;
+  --secondary-color-900: #d9f4fc;
+
+  /* Semantic Tokens - Light Theme (Default) */
+  --color-background: var(--primary-color-900);
+  --color-foreground: var(--primary-color-500);
+  --color-text: var(--secondary-color-100);
+  --color-border: var(--primary-color-700);
+
+  /* Spacing */
+  --spacing-xs: 4px;
+  --spacing-sm: 8px;
+  --spacing-md: 16px;
+  --spacing-lg: 24px;
+  --spacing-xl: 32px;
+  --spacing-xxl: 48px;
+
+  /* Layout */
+  --header-height: 80px;
+  --container-padding: 15%;
+
+  /* Typography */
+  --font-family-base: Inter, system-ui, -apple-system, BlinkMacSystemFont,
+    "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
 }
 
-.icon-sun {
-  display: none;
-}
-
+/* ==========================================================================
+   Dark Theme
+   ========================================================================== */
 html[data-theme="dark"] {
-  --primary-color-900: #e0fcf4;
-  --primary-color-800: #b0f2df;
-  --primary-color-700: #76dbbe;
-  --primary-color-600: #41bf9b;
-  --primary-color-500: #29ab87;
-  --primary-color-400: #17916e;
-  --primary-color-300: #0b7053;
-  --primary-color-200: #03513b;
-  --primary-color-100: #002d20;
+  /* Semantic Tokens - Dark Theme */
+  --color-background: var(--primary-color-200);
+  --color-foreground: var(--primary-color-100);
+  --color-text: var(--secondary-color-900);
+  --color-border: var(--primary-color-300);
 
-  --secondary-color-900: #d9f4fc;
-  --secondary-color-800: #a6dded;
-  --secondary-color-700: #6fc4db;
-  --secondary-color-600: #43a6c1;
-  --secondary-color-500: #298eaa;
-  --secondary-color-400: #13687f;
-  --secondary-color-300: #044051;
-  --secondary-color-200: #001e26;
-  --secondary-color-100: #000e11;
-
+  /* Theme-specific icon visibility */
   .icon-sun {
     display: block;
   }
-
 
   .icon-moon {
     display: none;
   }
 }
 
+/* ==========================================================================
+   Base Styles & Resets
+   ========================================================================== */
+* {
+  box-sizing: border-box;
+}
 
-html,
-body {
-  background-color: var(--secondary-color-200);
-  color: var(--primary-color-900);
-  font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont,
-    "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+html {
   height: 100%;
+}
+
+body {
+  background-color: var(--color-background);
+  color: var(--color-text);
+  font-family: var(--font-family-base);
+  height: 100%;
+  line-height: 1.5;
+  margin: 0;
+  padding: 0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  transition: background-color 0.2s ease;
+}
+
+/* ==========================================================================
+   Component: App Header
+   ========================================================================== */
+.app-header {
+  align-items: center;
+  background-color: var(--color-foreground);
+  display: flex;
+  justify-content: space-between;
+  min-height: var(--header-height);
+  padding: 0 var(--container-padding);
+  position: relative;
+  z-index: 100;
+
+  transition: background-color 0.2s ease;
+}
+
+/* Logo Section */
+.header-logo {
+  align-items: center;
+  display: flex;
+
+  svg {
+    color: var(--color-foreground);
+    fill: var(--color-text);
+    height: 30px;
+    transform: rotate(-15deg);
+    transition: transform 0.2s ease, fill 0.2s ease;
+    width: auto;
+  }
+
+  &:hover svg {
+    transform: rotate(0deg);
+  }
+}
+
+/* Navigation Section */
+.header-nav {
+  display: flex;
+  gap: var(--spacing-xs);
+  list-style: none;
   margin: 0;
   padding: 0;
 }
 
-.app-header {
-  display: flex;
-  justify-content: space-between;
+.header-nav-item {
   align-items: center;
-  padding: 0 15%;
+  border-radius: 4px;
+  color: var(--color-text);
+  display: flex;
+  padding: var(--spacing-sm) var(--spacing-md);
+  text-decoration: none;
+  transition: background-color 0.2s ease, color 0.2s ease;
 
-  background-color: var(--secondary-color-100);
-  min-height: 80px;
+  &:hover {
+    background-color: color-mix(in srgb, var(--color-text) 10%, transparent);
+  }
 
-  .header-logo {
-    display: flex;
-    align-items: center;
+  p {
+    margin: 0;
+  }
 
-    svg {
-      transform: rotate(-15deg);
-      height: 30px;
-      width: auto;
-      fill: var(--primary-color-900);
-    }
+  button {
+    background-color: transparent;
+    border: none;
+    color: inherit;
+    cursor: pointer;
+    padding: 0;
+  }
+
+  svg {
+    color: var(--color-text);
+    fill: var(--color-foreground);
+    height: 24px;
+    transition: fill 0.2s ease;
+    width: auto;
+  }
+}
+
+/* ==========================================================================
+   Utility Classes
+   ========================================================================== */
+.icon-sun {
+  display: none;
+}
+
+.visually-hidden {
+  border: 0;
+  clip: rect(0 0 0 0);
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  width: 1px;
+}
+
+/* ==========================================================================
+   Responsive Design (Example)
+   ========================================================================== */
+@media (max-width: 768px) {
+  :root {
+    --container-padding: 5%;
+  }
+
+  .app-header {
+    flex-direction: column;
+    gap: var(--spacing-md);
+    padding: var(--spacing-md) var(--container-padding);
   }
 
   .header-nav {
-    display: flex;
-
-    .header-nav-item {
-      text-decoration: none;
-      padding: 8px 16px;
-      display: flex;
-      align-items: center;
-      color: var(--primary-color-900);
-
-      p {
-        margin: 0;
-      }
-
-      button {
-        border: none;
-        background-color: transparent;
-      }
-
-      svg {
-        max-height: 30px;
-        width: auto;
-        fill: var(--secondary-color-100);
-        color: var(--primary-color-900);
-      }
-    }
+    width: 100%;
+    justify-content: center;
   }
 }
