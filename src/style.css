@@ -1,5 +1,4 @@
 :root {
-
   --primary-color-900: #e0fcf4;
   --primary-color-800: #b0f2df;
   --primary-color-700: #76dbbe;
@@ -20,6 +19,42 @@
   --secondary-color-200: #001e26;
   --secondary-color-100: #000e11;
 }
+
+.icon-sun {
+  display: none;
+}
+
+html[data-theme="dark"] {
+  --primary-color-900: #e0fcf4;
+  --primary-color-800: #b0f2df;
+  --primary-color-700: #76dbbe;
+  --primary-color-600: #41bf9b;
+  --primary-color-500: #29ab87;
+  --primary-color-400: #17916e;
+  --primary-color-300: #0b7053;
+  --primary-color-200: #03513b;
+  --primary-color-100: #002d20;
+
+  --secondary-color-900: #d9f4fc;
+  --secondary-color-800: #a6dded;
+  --secondary-color-700: #6fc4db;
+  --secondary-color-600: #43a6c1;
+  --secondary-color-500: #298eaa;
+  --secondary-color-400: #13687f;
+  --secondary-color-300: #044051;
+  --secondary-color-200: #001e26;
+  --secondary-color-100: #000e11;
+
+  .icon-sun {
+    display: block;
+  }
+
+
+  .icon-moon {
+    display: none;
+  }
+}
+
 
 html,
 body {
@@ -67,10 +102,16 @@ body {
         margin: 0;
       }
 
+      button {
+        border: none;
+        background-color: transparent;
+      }
+
       svg {
         max-height: 30px;
         width: auto;
-        fill: var(--primary-color-900);
+        fill: var(--secondary-color-100);
+        color: var(--primary-color-900);
       }
     }
   }
