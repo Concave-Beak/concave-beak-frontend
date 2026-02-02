@@ -1,6 +1,7 @@
 import "./style.css";
 import { loadFooter } from "./shared/footer.ts";
 import { loadHeader } from "./shared/header.ts";
+import { loadMainPageContent } from "./features/main-page-content.ts";
 
 const savedTheme = localStorage.getItem("theme") as "light" | "dark" | null
 
@@ -14,8 +15,10 @@ if (savedTheme) {
 
 document.querySelector<HTMLDivElement>("#app")!.innerHTML = `
   <div id="app-header" class="app-header"></div>
+  <div id="main-page-content" class="main-page-content"></div>
   <div id="app-footer"></div>
 `;
 
 loadHeader();
+loadMainPageContent();
 loadFooter();

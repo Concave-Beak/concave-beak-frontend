@@ -22,5 +22,5 @@ function toggleTheme() {
   // Remove animation class after animation completes
   setTimeout(() => {
     html.classList.remove('theme-changing');
-  }, 500); // Match animation duration
+  }, 500);
 }
