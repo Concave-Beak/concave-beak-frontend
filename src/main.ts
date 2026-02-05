@@ -16,7 +16,7 @@ if (savedTheme) {
 document.querySelector<HTMLDivElement>("#app")!.innerHTML = `
   <div id="app-header" class="app-header"></div>
   <div id="main-page-content" class="main-page-content"></div>
-  <div id="app-footer"></div>
+  <div id="app-footer" class="app-footer"></div>
 `;
 
 loadHeader();

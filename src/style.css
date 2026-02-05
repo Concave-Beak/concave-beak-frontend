@@ -45,7 +45,8 @@
   --container-padding: 15%;
 
   --banner-height: calc(100vh - var(--header-height));
-  /* 100 - header-height */
+
+  --footer-height: 15vh;
 
   /* Typography */
   --font-family-base: Inter, system-ui, -apple-system, BlinkMacSystemFont,
@@ -146,9 +147,6 @@ body {
 
 /* Logo Section */
 .header-logo {
-  align-items: center;
-  display: flex;
-
   svg {
     transform: rotate(-15deg);
     height: 30px;
@@ -166,7 +164,6 @@ body {
 .header-nav {
   display: flex;
   gap: var(--spacing-xs);
-  list-style: none;
   margin: 0;
   padding: 0;
 }
@@ -175,17 +172,12 @@ body {
   align-items: center;
   border-radius: 4px;
   color: var(--color-text);
-  display: flex;
   padding: var(--spacing-sm) var(--spacing-md);
   text-decoration: none;
   transition: background-color 0.2s ease, color 0.2s ease;
 
   &:hover {
     background-color: color-mix(in srgb, var(--color-text) 10%, transparent);
-  }
-
-  p {
-    margin: 0;
   }
 
   button {
@@ -203,6 +195,48 @@ body {
     transition: fill 0.2s ease;
     width: auto;
   }
+}
+
+/* ==========================================================================
+   Component: App Footer
+   ========================================================================== */
+
+.app-footer {
+  width: 100vw;
+  background-color: var(--color-foreground);
+  font-size: 14px;
+
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+  overflow: hidden;
+  min-height: var(--footer-height);
+  padding-top: var(--spacing-lg);
+}
+
+.footer-box {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-left: var(--container-padding);
+  padding-right: var(--container-padding);
+}
+
+.footer-description {
+  max-width: 75%;
+}
+
+.footer-nav {
+  gap: var(--spacing-xs);
+}
+
+.footer-nav-item {
+  text-decoration: underline;
+  color: var(--color-text);
+}
+
+.footer-copyright {
+  font-weight: bold;
 }
 
 /* ==========================================================================
@@ -230,10 +264,10 @@ body {
 
   .banner-text {
     position: absolute;
-    top: 65%;
+    top: 55%;
     left: 50%;
     transform: translateX(-50%);
-    width: 100%;
+    margin: auto;
     text-align: center;
 
     display: flex;
@@ -248,7 +282,6 @@ body {
   }
 
   .main-page-banner-header-description {
-    margin-top: 12px;
     font-size: 25px;
   }
 }
