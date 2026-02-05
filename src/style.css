@@ -214,7 +214,7 @@ body {
   padding-top: var(--spacing-lg);
 }
 
-.footer-box {
+.footer-container {
   display: flex;
   justify-content: space-between;
   align-items: center;

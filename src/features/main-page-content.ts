@@ -10,5 +10,7 @@ export function loadMainPageContent() {
         </div>
       </div>
     </div>
+    <div class="main-page-articles">
+    </div>
   `
 }

@@ -1,7 +1,6 @@
-// TODO find a better name for class `footer-box`
 export function loadFooter() {
   document.querySelector<HTMLDivElement>("#app-footer")!.innerHTML = `
-    <div class="footer-box">
+    <div class="footer-container">
       <div class="footer-description">
         Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
       </div>
@@ -19,7 +18,7 @@ export function loadFooter() {
         </a>
       </div>
     </div>
-    <div class="footer-box">
+    <div class="footer-container">
         <div class="footer-copyright">
           Copyright message
         </div>
