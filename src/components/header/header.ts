@@ -1,7 +1,7 @@
 import headerTemplate from "./header.template.html?raw"
 import "./header.css";
 
-export class Header {
+export class HeaderComponent {
   private template: string = "";
   private element: HTMLElement | null = null;
 
