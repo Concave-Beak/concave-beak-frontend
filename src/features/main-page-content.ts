@@ -1,7 +1,9 @@
 export function loadMainPageContent() {
   document.querySelector<HTMLDivElement>("#main-page-content")!.innerHTML = `
     <div class="main-page-banner vignette">
-      <img src="/toucan-shannon-potter-unsplash.jpg">
+      <div class="banner-media">
+        <img src="/toucan-shannon-potter-unsplash.jpg">
+      </div>
 
       <div class="banner-text">
         <div class="main-page-banner-header">Img Banner header</div>
@@ -11,6 +13,9 @@ export function loadMainPageContent() {
       </div>
     </div>
     <div class="main-page-articles">
+      <div class="main-page-article-header">
+        Recent Articles
+      </div>
       <a href="/article-link" class="article-preview">
         <div class="article-preview-banner smooth-edges-img-sm">
           <img src="/makaw-caio_delarolle.jpg">
@@ -46,3 +51,35 @@ export function loadMainPageContent() {
     </div>
   `
 }
+
+function scrollHide() {
+  const banner = document.querySelector<HTMLDivElement>('.main-page-banner');
+  const bannerHeight = banner!.offsetHeight;
+
+  let ticking = false;
+
+  if (!ticking) {
+    requestAnimationFrame(() => {
+      const scrollTop = window.pageYOffset;
+      const progress = Math.min(scrollTop / bannerHeight * 2, 1);
+
+      banner!.style.opacity = (1 - progress).toString();
+      banner!.style.transform = `translateY(${progress * -50}px)`;
+      banner!.style.filter = `blur(${progress * 3}px)`;
+
+      const text = banner!.querySelector<HTMLDivElement>('.banner-text');
+      if (text) {
+        text!.style.opacity = (1 - (progress * 1.5)).toString();
+        text.style.transform = `translate(-50%, ${progress * -20}px)`;
+      }
+
+      ticking = false;
+    });
+    ticking = true;
+  }
+
+}
+
+window.addEventListener('scroll', () => {
+  scrollHide();
+});
