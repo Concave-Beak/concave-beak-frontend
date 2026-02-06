@@ -1,6 +1,6 @@
 import "./style.css";
-import { loadFooter } from "./shared/footer.ts";
-import { loadHeader } from "./shared/header.ts";
+import { loadFooter } from "./components/footer/footer.ts";
+import { loadHeader } from "./components/header/header.ts";
 import { loadMainPageContent } from "./features/main-page-content.ts";
 
 const savedTheme = localStorage.getItem("theme") as "light" | "dark" | null

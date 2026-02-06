@@ -52,7 +52,7 @@ export function loadMainPageContent() {
   `
 }
 
-function scrollHide() {
+function scrollHideBanner() {
   const banner = document.querySelector<HTMLDivElement>('.main-page-banner');
   const bannerHeight = banner!.offsetHeight;
 
@@ -81,5 +81,5 @@ function scrollHide() {
 }
 
 window.addEventListener('scroll', () => {
-  scrollHide();
+  scrollHideBanner();
 });

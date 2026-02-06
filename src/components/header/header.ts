@@ -1,4 +1,4 @@
-import { loadThemeButton } from "../features/theme-button"
+import { loadThemeButton } from "../theme-button/theme-button"
 
 export function loadHeader() {
   document.querySelector<HTMLDivElement>("#app-header")!.innerHTML = `
