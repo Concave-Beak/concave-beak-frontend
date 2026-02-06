@@ -1,14 +1,17 @@
 import headerTemplate from "./header.template.html?raw"
 import "./header.css";
+import { ThemeButtonComponent } from "./theme-button/theme-button";
 
 export class HeaderComponent {
   private template: string = "";
   private element: HTMLElement | null = null;
+  private themeButton: ThemeButtonComponent = new ThemeButtonComponent();
 
   async init() {
     this.loadTemplate();
     this.render();
     this.bindEvents();
+    this.themeButton.init();
   }
 
   private loadTemplate() {

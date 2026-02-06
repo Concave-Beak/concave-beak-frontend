@@ -1,0 +1,9 @@
+.theme-button {
+  button {
+    background-color: transparent;
+    border: none;
+    color: inherit;
+    cursor: pointer;
+    padding: 0;
+  }
+}
