@@ -6,26 +6,22 @@ export class ThemeButtonComponent {
   async init() {
     this.findButton();
     this.bindEvents();
-    this.updateButtonState();
   }
 
   private findButton() {
-    this.button = document.querySelector('#theme-toggle');
+    this.button = document.querySelector('#theme-button');
   }
 
   private bindEvents() {
+    /* TODO use event manager */
     this.button?.addEventListener('click', () => this.toggleTheme());
   }
 
   private toggleTheme() {
-    const isDark = document.documentElement.classList.toggle('dark-theme');
-    localStorage.setItem('theme', isDark ? 'dark' : 'light');
-    this.updateButtonState();
-  }
+    const html = document.documentElement
+    const nextTheme = html.dataset.theme === "dark" ? "light" : "dark"
 
-  private updateButtonState() {
-    if (!this.button) return;
-    const isDark = document.documentElement.classList.contains('dark-theme');
-    this.button.setAttribute('aria-pressed', isDark.toString());
+    html.dataset.theme = nextTheme
+    localStorage.setItem("theme", nextTheme)
   }
 }
