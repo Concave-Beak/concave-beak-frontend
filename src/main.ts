@@ -4,7 +4,7 @@ import "./styles/globals.css"
 
 import { FooterComponent } from "./components/footer/footer.ts";
 import { HeaderComponent } from "./components/header/header.ts";
-import { loadMainPageContent } from "./features/main-page-content.ts";
+import { HomePage } from "./features/home-page/home-page.ts";
 
 const savedTheme = localStorage.getItem("theme") as "light" | "dark" | null
 
@@ -18,7 +18,7 @@ if (savedTheme) {
 
 document.querySelector<HTMLDivElement>("#app")!.innerHTML = `
   <div id="app-header" class="app-header"></div>
-  <div id="main-page-content" class="main-page-content"></div>
+  <div id="home-page-content" class="home-page-content"></div>
   <div id="app-footer" class="app-footer"></div>
 `;
 
@@ -26,6 +26,7 @@ async function initApp() {
   const components = [
     new HeaderComponent(),
     new FooterComponent(),
+    new HomePage(),
   ];
 
   await Promise.all(components.map(comp => comp.init()));

@@ -1,4 +1,4 @@
-import footerTemplate from "./footer.html?raw"
+import footerTemplate from "./footer.template.html?raw"
 import "./footer.css"
 
 export class FooterComponent {

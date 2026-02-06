@@ -1,0 +1,119 @@
+.home-page-content {
+  --banner-height: 90vh;
+  --article-preview-padding-horizontal: calc(var(--container-padding) + 5%);
+  --article-preview-padding-vertical: 5%;
+  --article-preview-gap: 10vh;
+
+  display: flex;
+  flex-direction: column;
+  background-color: var(--color-foreground);
+
+  .home-page-banner {
+    max-height: var(--banner-height);
+    overflow: hidden;
+    background-color: var(--color-foreground);
+    transition: all 0.5s ease;
+    transform: translateY(0);
+    position: relative;
+  }
+
+  .banner-media img {
+    opacity: var(--opacity-banner-image);
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top;
+  }
+
+  .banner-text {
+    position: absolute;
+    top: 55%;
+    left: 50%;
+    transform: translateX(-50%);
+    margin: auto;
+    text-align: center;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .home-page-banner-header {
+    font-size: 90px;
+    text-transform: uppercase;
+    font-weight: bold;
+  }
+
+  .home-page-banner-header-description {
+    font-size: 25px;
+  }
+
+  .home-page-article-header {
+    font-size: 45px;
+    text-align: center;
+  }
+
+  .home-page-articles {
+    background-color: var(--color-background);
+
+    padding-left: var(--article-preview-padding-horizontal);
+    padding-right: var(--article-preview-padding-horizontal);
+    padding-top: var(--article-preview-padding-vertical);
+    padding-bottom: var(--article-preview-padding-vertical);
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    row-gap: var(--article-preview-gap);
+  }
+
+  .article-preview {
+    display: flex;
+    gap: 2%;
+    text-decoration: none;
+    color: var(--color-text);
+
+    .article-preview-text {
+      display: flex;
+      flex-direction: column;
+    }
+
+  }
+
+  .article-preview-banner {
+    img {
+      max-width: 100%;
+      object-fit: cover;
+      object-position: top;
+    }
+  }
+
+  .article-preview-title {
+    font-size: 30px;
+  }
+
+  .article-preview-description {
+    margin-top: 4%;
+  }
+
+  .article-preview-date {
+    color: var(--color-text-hidden);
+    margin-top: auto;
+  }
+
+  .article-preview:nth-child(odd) {
+    display: flex;
+    flex-direction: row-reverse;
+
+    .article-preview-title {
+      font-size: 30px;
+      text-align: right;
+    }
+
+    .article-preview-date {
+      color: var(--color-text-hidden);
+      margin-top: auto;
+      text-align: right;
+    }
+  }
+}
