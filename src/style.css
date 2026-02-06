@@ -28,6 +28,7 @@
   --color-background: var(--primary-color-900);
   --color-foreground: var(--primary-color-500);
   --color-text: var(--secondary-color-100);
+  --color-text-hidden: var(--primary-color-700);
   --color-border: var(--primary-color-700);
   --color-banner-background: var(--primary-color-500);
   --opacity-banner-image: 0.75;
@@ -43,6 +44,9 @@
   /* Layout */
   --header-height: 10vh;
   --container-padding: 15%;
+  --article-preview-padding-horizontal: calc(var(--container-padding) + 5%);
+  --article-preview-padding-vertical: 5%;
+  --article-preview-gap: 10vh;
 
   --banner-height: calc(100vh - var(--header-height));
 
@@ -61,6 +65,7 @@ html[data-theme="dark"] {
   --color-background: var(--primary-color-200);
   --color-foreground: var(--primary-color-100);
   --color-text: var(--secondary-color-900);
+  --color-text-hidden: var(--primary-color-300);
   --color-border: var(--primary-color-300);
   --color-banner-background: var(--primary-color-100);
   --opacity-banner-image: 0.4;
@@ -244,6 +249,7 @@ body {
    ========================================================================== */
 .main-page-content {
   display: flex;
+  flex-direction: column;
 }
 
 .main-page-banner {
@@ -286,6 +292,71 @@ body {
   }
 }
 
+.main-page-articles {
+  background-color: var(--color-background);
+
+  padding-left: var(--article-preview-padding-horizontal);
+  padding-right: var(--article-preview-padding-horizontal);
+  padding-top: var(--article-preview-padding-vertical);
+  padding-bottom: var(--article-preview-padding-vertical);
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  row-gap: var(--article-preview-gap);
+}
+
+.article-preview {
+  display: flex;
+  gap: 2%;
+  text-decoration: none;
+  color: var(--color-text);
+
+  .article-preview-text {
+    display: flex;
+    flex-direction: column;
+  }
+
+}
+
+.article-preview-banner {
+  img {
+    max-width: 100%;
+    object-fit: cover;
+    object-position: top;
+  }
+}
+
+.article-preview-title {
+  font-size: 30px;
+}
+
+.article-preview-description {
+  margin-top: 4%;
+}
+
+.article-preview-date {
+  color: var(--color-text-hidden);
+  margin-top: auto;
+}
+
+.article-preview:nth-child(even) {
+  display: flex;
+  flex-direction: row-reverse;
+
+  .article-preview-title {
+    font-size: 30px;
+    text-align: right;
+  }
+
+  .article-preview-date {
+    color: var(--color-text-hidden);
+    margin-top: auto;
+    text-align: right;
+  }
+}
+
+
 /* ==========================================================================
    Utility Classes
    ========================================================================== */
@@ -317,6 +388,12 @@ body {
   padding: 0;
   position: absolute;
   width: 1px;
+}
+
+.smooth-edges-img-sm {
+  img {
+    border-radius: 1%;
+  }
 }
 
 /* ==========================================================================

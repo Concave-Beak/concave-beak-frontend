@@ -11,6 +11,38 @@ export function loadMainPageContent() {
       </div>
     </div>
     <div class="main-page-articles">
+      <a href="/article-link" class="article-preview">
+        <div class="article-preview-banner smooth-edges-img-sm">
+          <img src="/makaw-caio_delarolle.jpg">
+        </div>
+        <div class="article-preview-text">
+          <div class="article-preview-title">
+            Name example
+          </div>
+          <div class="article-preview-description">
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+          </div>
+          <div class="article-preview-date">
+            10-10-1010
+          </div>
+        </div>
+      </a>
+      <a href="/article-link" class="article-preview">
+        <div class="article-preview-banner smooth-edges-img-sm">
+          <img src="/makaw-caio_delarolle.jpg">
+        </div>
+        <div class="article-preview-text">
+          <div class="article-preview-title">
+            Name example
+          </div>
+          <div class="article-preview-description">
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+          </div>
+          <div class="article-preview-date">
+            10-10-1010
+          </div>
+        </div>
+      </a>
     </div>
   `
 }
