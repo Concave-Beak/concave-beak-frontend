@@ -1,6 +1,6 @@
 import "./style.css";
 import { loadFooter } from "./components/footer/footer.ts";
-import { loadHeader } from "./components/header/header.ts";
+import { Header } from "./components/header/header.ts";
 import { loadMainPageContent } from "./features/main-page-content.ts";
 
 const savedTheme = localStorage.getItem("theme") as "light" | "dark" | null
@@ -19,6 +19,12 @@ document.querySelector<HTMLDivElement>("#app")!.innerHTML = `
   <div id="app-footer" class="app-footer"></div>
 `;
 
-loadHeader();
-loadMainPageContent();
-loadFooter();
+async function initApp() {
+  const components = [
+    new Header(),
+  ];
+
+  await Promise.all(components.map(comp => comp.init()));
+}
+
+document.addEventListener('DOMContentLoaded', initApp);

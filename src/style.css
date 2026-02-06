@@ -42,13 +42,12 @@
   --spacing-xxl: 48px;
 
   /* Layout */
-  --header-height: 10vh;
   --container-padding: 15%;
   --article-preview-padding-horizontal: calc(var(--container-padding) + 5%);
   --article-preview-padding-vertical: 5%;
   --article-preview-gap: 10vh;
 
-  --banner-height: calc(100vh - var(--header-height));
+  --banner-height: 90vh;
 
   --footer-height: 15vh;
 
@@ -124,81 +123,6 @@ body {
 
   75% {
     transform: rotate(-20deg);
-  }
-}
-
-/* Animation class */
-.theme-changing .header-logo svg {
-  animation: logo-shake 0.5s ease-in-out;
-}
-
-/* ==========================================================================
-   Component: App Header
-   ========================================================================== */
-.app-header {
-  align-items: center;
-  background-color: var(--color-foreground);
-  display: flex;
-  justify-content: space-between;
-  min-height: var(--header-height);
-  width: 100vw;
-  padding: 0 var(--container-padding);
-  position: sticky;
-  top: 0px;
-  z-index: 100;
-
-  transition: background-color 0.2s ease;
-}
-
-/* Logo Section */
-.header-logo {
-  svg {
-    transform: rotate(-15deg);
-    height: 30px;
-    width: auto;
-    fill: var(--color-text);
-    transition: fill 0.2s ease, transform 0.2s ease;
-  }
-
-  &:hover svg {
-    transform: rotate(0deg);
-  }
-}
-
-/* Navigation Section */
-.header-nav {
-  display: flex;
-  gap: var(--spacing-xs);
-  margin: 0;
-  padding: 0;
-}
-
-.header-nav-item {
-  align-items: center;
-  border-radius: 4px;
-  color: var(--color-text);
-  padding: var(--spacing-sm) var(--spacing-md);
-  text-decoration: none;
-  transition: background-color 0.2s ease, color 0.2s ease;
-
-  &:hover {
-    background-color: color-mix(in srgb, var(--color-text) 10%, transparent);
-  }
-
-  button {
-    background-color: transparent;
-    border: none;
-    color: inherit;
-    cursor: pointer;
-    padding: 0;
-  }
-
-  svg {
-    color: var(--color-text);
-    fill: var(--color-foreground);
-    height: 24px;
-    transition: fill 0.2s ease;
-    width: auto;
   }
 }
 
