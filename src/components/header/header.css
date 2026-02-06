@@ -1,6 +1,5 @@
 .app-header {
   --header-height: 10vh;
-
 }
 
 .app-header {
@@ -70,5 +69,33 @@
     height: 24px;
     transition: fill 0.2s ease;
     width: auto;
+  }
+}
+
+@media (max-width: 768px) {
+  .app-header {
+    flex-direction: column;
+    gap: var(--spacing-md);
+    padding: var(--spacing-md) var(--container-padding);
+  }
+}
+
+@keyframes logo-shake {
+
+  0%,
+  100% {
+    transform: rotate(-15deg);
+  }
+
+  25% {
+    transform: rotate(-20deg);
+  }
+
+  50% {
+    transform: rotate(-10deg);
+  }
+
+  75% {
+    transform: rotate(-20deg);
   }
 }

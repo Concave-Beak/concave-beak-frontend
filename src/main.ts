@@ -1,4 +1,6 @@
 import "./style.css";
+import "./styles/base.css"
+import "./styles/globals.css"
 import { loadFooter } from "./components/footer/footer.ts";
 import { Header } from "./components/header/header.ts";
 import { loadMainPageContent } from "./features/main-page-content.ts";
