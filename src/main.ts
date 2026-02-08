@@ -1,4 +1,3 @@
-import "./style.css";
 import "./styles/base.css"
 import "./styles/globals.css"
 import { utils } from "./utils/theme/saved-theme"

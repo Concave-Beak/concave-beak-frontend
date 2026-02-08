@@ -45,6 +45,10 @@
 
 }
 
+.icon-sun {
+  display: none;
+}
+
 html[data-theme="dark"] {
   /* Semantic Tokens - Dark Theme */
   --color-background: var(--primary-color-200);

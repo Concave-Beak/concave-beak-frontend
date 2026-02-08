@@ -70,6 +70,11 @@
     gap: var(--spacing-md);
     padding: var(--spacing-md) var(--container-padding);
   }
+
+  .header-nav {
+    width: 100%;
+    justify-content: center;
+  }
 }
 
 @keyframes logo-shake {
