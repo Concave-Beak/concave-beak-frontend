@@ -1,15 +1,19 @@
 import "./home-page.css"
 import homePageTemplate from "./home-page.template.html?raw"
-import { eventManager, type EventManagerUnsubscribeFunc } from "../../utils/events/event-manager";
+
+import { HomePageArticles } from "./articles/articles";
+import { HomePageBanner } from "./banner/banner";
 
 export class HomePage {
   private template: string = "";
   private element: HTMLElement | null = null;
-  private unsubscribe: EventManagerUnsubscribeFunc[] = [];
+  private banner: HomePageBanner = new HomePageBanner();
+  private articles: HomePageArticles = new HomePageArticles();
 
   async init() {
     this.loadTemplate();
     this.render();
+    await this.loadComponents();
     this.bindEvents();
   }
 
@@ -25,39 +29,27 @@ export class HomePage {
     }
   }
 
-  private bindEvents() {
-    this.unsubscribe.push(eventManager.onDOM('scroll', () => this.scrollHideBanner(), { target: window }));
-  }
+  private async loadComponents() {
+    await Promise.all([
+      this.banner.init(),
+      this.articles.init(),
+    ]);
 
+    const bannerContainer = document.querySelector('#home-page-banner');
+    const articlesContainer = document.querySelector("#home-page-articles");
 
-  private scrollHideBanner() {
-    const banner = document.querySelector<HTMLDivElement>('.home-page-banner');
-    const bannerHeight = banner!.offsetHeight;
-    let ticking = false;
-
-    if (!ticking) {
-      requestAnimationFrame(() => {
-        const scrollTop = window.pageYOffset;
-        const progress = Math.min(scrollTop / bannerHeight * 2, 1);
-
-        banner!.style.opacity = (1 - progress).toString();
-        banner!.style.transform = `translateY(${progress * -50}px)`;
-        banner!.style.filter = `blur(${progress * 3}px)`;
-
-        const text = banner!.querySelector<HTMLDivElement>('.banner-text');
-        if (text) {
-          text!.style.opacity = (1 - (progress * 1.5)).toString();
-          text.style.transform = `translate(-50%, ${progress * -20}px)`;
-        }
-
-        ticking = false;
-      });
-      ticking = true;
+    if (bannerContainer && this.banner.getTemplate()) {
+      bannerContainer.appendChild(this.banner.getTemplate()!);
+    }
+    if (articlesContainer && this.articles.getTemplate()) {
+      articlesContainer.appendChild(this.articles.getTemplate()!);
     }
   }
 
+  private bindEvents() { }
+
   destroy() {
-    this.unsubscribe.forEach(unsub => unsub());
-    this.unsubscribe = [];
+    this.banner.destroy();
+    this.articles.destroy();
   }
 }

@@ -51,6 +51,7 @@
   .home-page-article-header {
     font-size: 45px;
     text-align: center;
+    transition: all 0.5s ease;
   }
 
   .home-page-articles {
@@ -65,6 +66,7 @@
     flex-direction: column;
     justify-content: space-between;
     row-gap: var(--article-preview-gap);
+    transition: all 0.2s ease;
   }
 
   .article-preview {
