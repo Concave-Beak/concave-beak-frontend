@@ -1,7 +1,9 @@
+import { eventManager, type EventManagerUnsubscribeFunc } from "../../../utils/events/event-manager";
 import "./theme-button.css"
 
 export class ThemeButtonComponent {
   private button: HTMLButtonElement | null = null;
+  private unsubscribe: EventManagerUnsubscribeFunc[] = [];
 
   async init() {
     this.findButton();
@@ -13,8 +15,7 @@ export class ThemeButtonComponent {
   }
 
   private bindEvents() {
-    /* TODO use event manager */
-    this.button?.addEventListener('click', () => this.toggleTheme());
+    this.unsubscribe.push(eventManager.onDOM('click', () => this.toggleTheme(), { target: this.button! }));
   }
 
   private toggleTheme() {
@@ -23,5 +24,10 @@ export class ThemeButtonComponent {
 
     html.dataset.theme = nextTheme
     localStorage.setItem("theme", nextTheme)
+  }
+
+  destroy() {
+    this.unsubscribe.forEach(unsub => unsub());
+    this.unsubscribe = [];
   }
 }

@@ -1,6 +1,8 @@
 // utils/eventManager.ts
 import type { AppEvents } from '../../types/events/app-event';
 
+export type EventManagerUnsubscribeFunc = (() => void);
+
 export class EventManager {
   private customListeners = new Map<string, Function[]>();
 
@@ -9,7 +11,7 @@ export class EventManager {
   on<T extends keyof AppEvents>(
     event: T,
     handler: (data: AppEvents[T]) => void
-  ): () => void {
+  ): EventManagerUnsubscribeFunc {
     if (!this.customListeners.has(event)) {
       this.customListeners.set(event, []);
     }
@@ -27,16 +29,6 @@ export class EventManager {
     }
   }
 
-  off<T extends keyof AppEvents>(event: T, handler: Function): void {
-    const listeners = this.customListeners.get(event);
-    if (listeners) {
-      const index = listeners.indexOf(handler);
-      if (index > -1) {
-        listeners.splice(index, 1);
-      }
-    }
-  }
-
   onDOM<T = any>(
     eventName: string,
     handler: (event: Event | CustomEvent<T>) => void,
@@ -44,7 +36,7 @@ export class EventManager {
       target?: EventTarget;
       eventOptions?: AddEventListenerOptions;
     } = {}
-  ): () => void {
+  ): EventManagerUnsubscribeFunc {
     const { target = document, eventOptions } = options;
 
     const listener = (event: Event) => {
@@ -76,6 +68,16 @@ export class EventManager {
     });
 
     target.dispatchEvent(event);
+  }
+
+  private off<T extends keyof AppEvents>(event: T, handler: Function): void {
+    const listeners = this.customListeners.get(event);
+    if (listeners) {
+      const index = listeners.indexOf(handler);
+      if (index > -1) {
+        listeners.splice(index, 1);
+      }
+    }
   }
 }
 
