@@ -30,20 +30,8 @@ export class HomePage {
   }
 
   private async loadComponents() {
-    await Promise.all([
-      this.banner.init(),
-      this.articles.init(),
-    ]);
-
-    const bannerContainer = document.querySelector('#home-page-banner');
-    const articlesContainer = document.querySelector("#home-page-articles");
-
-    if (bannerContainer && this.banner.getTemplate()) {
-      bannerContainer.appendChild(this.banner.getTemplate()!);
-    }
-    if (articlesContainer && this.articles.getTemplate()) {
-      articlesContainer.appendChild(this.articles.getTemplate()!);
-    }
+    this.banner.init();
+    this.articles.init();
   }
 
   private bindEvents() { }

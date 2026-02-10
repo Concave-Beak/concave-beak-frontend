@@ -1,5 +1,12 @@
-import bannerTemplate from "./banner.template.html?raw"
 import { eventManager, type EventManagerUnsubscribeFunc } from "../../../utils/events/event-manager";
+import { templateLoader } from "../../../utils/templating/template-loader";
+
+// TODO use actual api
+const bannerFilledTemplate = {
+  title: "Title",
+  description: "lorrem",
+  imageUrl: '/toucan-shannon-potter-unsplash.jpg',
+}
 
 export class HomePageBanner {
   private template: HTMLElement | null = null;
@@ -15,9 +22,15 @@ export class HomePageBanner {
   }
 
   loadTemplate() {
-    const container = document.createElement('div');
-    container.innerHTML = bannerTemplate;
-    this.template = container as HTMLElement;
+    this.template = templateLoader.pushDataToTemplate('home-page-banner', {
+      title: bannerFilledTemplate.title,
+      description: bannerFilledTemplate.description,
+      imageUrl: bannerFilledTemplate.imageUrl
+    })
+    const container = document.querySelector('#home-page-banner');
+    if (container) {
+      container.innerHTML = this.template.innerHTML;
+    }
   }
 
   bindEvents() {
