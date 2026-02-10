@@ -1,15 +1,22 @@
 class TemplateLoader {
-  pushDataToTemplate(templateId: string, data: Record<string, any>): HTMLElement {
-    const template = document.getElementById(templateId) as HTMLTemplateElement;
-    const html = template.innerHTML;
+  fillTemplate(sourceElementId: string, data: Record<string, any>): HTMLElement {
+    const sourceElement = document.getElementById(sourceElementId);
+    if (!sourceElement) {
+      throw new Error(`Element with id "${sourceElementId}" not found`);
+    }
 
-    // Simple template variable replacement
+    const clone = sourceElement.cloneNode(true) as HTMLElement;
+    const html = clone.outerHTML;
+
+    // Template variable replacement
     let renderedHtml = html;
     Object.keys(data).forEach(key => {
       const placeholder = `{{${key}}}`;
-      renderedHtml = renderedHtml.replace(new RegExp(placeholder, 'g'), data[key]);
+      renderedHtml = renderedHtml.replace(
+        new RegExp(placeholder, 'g'),
+        data[key] !== null && data[key] !== undefined ? String(data[key]) : ''
+      );
     });
-    console.log(renderedHtml);
 
     // Clean up any unreplaced placeholders
     renderedHtml = renderedHtml.replace(/\{\{.*?\}\}/g, '');
@@ -17,8 +24,7 @@ class TemplateLoader {
     const container = document.createElement('div');
     container.innerHTML = renderedHtml;
 
-
-    return container as HTMLElement;
+    return container.firstElementChild as HTMLElement || container;
   }
 }
 

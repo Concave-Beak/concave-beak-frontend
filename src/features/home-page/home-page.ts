@@ -30,8 +30,16 @@ export class HomePage {
   }
 
   private async loadComponents() {
-    this.banner.init();
-    this.articles.init();
+    await Promise.all([
+      this.banner.init(),
+      this.articles.init(),
+    ]);
+
+    const bannerContainer = document.querySelector('#home-page-banner');
+
+    if (bannerContainer && this.banner.template) {
+      bannerContainer.replaceWith(this.banner.template!);
+    }
   }
 
   private bindEvents() { }

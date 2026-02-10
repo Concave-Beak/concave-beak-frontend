@@ -9,11 +9,11 @@ const bannerFilledTemplate = {
 }
 
 export class HomePageBanner {
-  private template: HTMLElement | null = null;
+  private _template: HTMLElement | null = null;
   private unsubscribe: EventManagerUnsubscribeFunc[] = [];
 
-  getTemplate(): HTMLElement | null {
-    return this.template;
+  get template(): HTMLElement | null {
+    return this._template;
   }
 
   async init() {
@@ -22,15 +22,11 @@ export class HomePageBanner {
   }
 
   loadTemplate() {
-    this.template = templateLoader.pushDataToTemplate('home-page-banner', {
+    this._template = templateLoader.fillTemplate('home-page-banner', {
       title: bannerFilledTemplate.title,
       description: bannerFilledTemplate.description,
       imageUrl: bannerFilledTemplate.imageUrl
     })
-    const container = document.querySelector('#home-page-banner');
-    if (container) {
-      container.innerHTML = this.template.innerHTML;
-    }
   }
 
   bindEvents() {
