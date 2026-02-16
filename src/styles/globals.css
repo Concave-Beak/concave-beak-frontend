@@ -26,6 +26,8 @@
   --color-foreground: var(--primary-color-500);
   --color-text: var(--secondary-color-100);
   --color-text-hidden: var(--primary-color-700);
+  --color-highlight: var(--primary-color-700);
+  --color-highlight-subtle: var(--primary-color-500);
 
   --spacing-xs: 4px;
   --spacing-sm: 8px;

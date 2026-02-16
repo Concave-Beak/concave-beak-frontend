@@ -12,21 +12,3 @@
       rgba(0, 0, 0, 0) 40%,
       rgba(0, 0, 0, 0.6) 100%);
 }
-
-/* .visually-hidden { */
-/* border: 0; */
-/* clip: rect(0 0 0 0); */
-/* height: 1px; */
-/* margin: -1px; */
-/* overflow: hidden; */
-/* padding: 0; */
-/* position: absolute; */
-/* width: 1px; */
-/* } */
-/* TODO */
-
-.smooth-edges-img-sm {
-  img {
-    border-radius: 1%;
-  }
-}

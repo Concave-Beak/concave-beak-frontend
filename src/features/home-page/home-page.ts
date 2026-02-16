@@ -36,9 +36,14 @@ export class HomePage {
     ]);
 
     const bannerContainer = document.querySelector('#home-page-banner');
+    const articlesContainer = document.querySelector('#home-page-articles-list');
 
     if (bannerContainer && this.banner.template) {
       bannerContainer.replaceWith(this.banner.template!);
+    }
+
+    if (articlesContainer && this.articles.template) {
+      articlesContainer.replaceChildren(this.articles.template);
     }
   }
 

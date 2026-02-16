@@ -1,3 +1,4 @@
+import "./banner.css"
 import { eventManager, type EventManagerUnsubscribeFunc } from "../../../utils/events/event-manager";
 import { templateLoader } from "../../../utils/templating/template-loader";
 
@@ -22,11 +23,7 @@ export class HomePageBanner {
   }
 
   loadTemplate() {
-    this._template = templateLoader.fillTemplate('home-page-banner', {
-      title: bannerFilledTemplate.title,
-      description: bannerFilledTemplate.description,
-      imageUrl: bannerFilledTemplate.imageUrl
-    })
+    this._template = templateLoader.fillTemplate('home-page-banner', bannerFilledTemplate);
   }
 
   bindEvents() {

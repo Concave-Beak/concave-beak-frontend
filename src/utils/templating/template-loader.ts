@@ -1,31 +1,48 @@
 class TemplateLoader {
-  fillTemplate(sourceElementId: string, data: Record<string, any>): HTMLElement {
-    const sourceElement = document.getElementById(sourceElementId);
-    if (!sourceElement) {
-      throw new Error(`Element with id "${sourceElementId}" not found`);
-    }
-
-    const clone = sourceElement.cloneNode(true) as HTMLElement;
-    const html = clone.outerHTML;
-
-    // Template variable replacement
+  private fillKeys(html: string, data: Record<string, any>): string {
     let renderedHtml = html;
+
     Object.keys(data).forEach(key => {
       const placeholder = `{{${key}}}`;
       renderedHtml = renderedHtml.replace(
         new RegExp(placeholder, 'g'),
-        data[key] !== null && data[key] !== undefined ? String(data[key]) : ''
+        data[key] !== null && data[key] !== undefined
+          ? String(data[key])
+          : ''
       );
     });
 
-    // Clean up any unreplaced placeholders
+    // remove leftovers
     renderedHtml = renderedHtml.replace(/\{\{.*?\}\}/g, '');
 
-    const container = document.createElement('div');
-    container.innerHTML = renderedHtml;
-
-    return container.firstElementChild as HTMLElement || container;
+    return renderedHtml;
   }
+
+  fillTemplate(sourceElementId: string, data: Record<string, any>): HTMLElement {
+    const element = document.getElementById(sourceElementId);
+
+    if (!element) {
+      throw new Error(`Element with id "${sourceElementId}" not found`);
+    }
+
+    let html: string;
+
+    if (element instanceof HTMLTemplateElement) {
+      const container = document.createElement('div');
+      container.appendChild(element.content.cloneNode(true));
+      html = container.innerHTML;
+    } else {
+      html = element.outerHTML;
+    }
+
+    const renderedHtml = this.fillKeys(html, data);
+
+    const wrapper = document.createElement('div');
+    wrapper.innerHTML = renderedHtml;
+
+    return wrapper.firstElementChild as HTMLElement || wrapper;
+  }
+
 }
 
 export const templateLoader = new TemplateLoader();
