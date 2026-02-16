@@ -1,48 +1,67 @@
 class TemplateLoader {
-  private fillKeys(html: string, data: Record<string, any>): string {
-    let renderedHtml = html;
+    private fillBrackets(htmlString: string): string {
+        const INDEX_START_OFFSET = 2;
+        const INDEX_END_OFFSET = 2;
+        const INDEX_NOT_FOUND = -1;
 
-    Object.keys(data).forEach(key => {
-      const placeholder = `{{${key}}}`;
-      renderedHtml = renderedHtml.replace(
-        new RegExp(placeholder, 'g'),
-        data[key] !== null && data[key] !== undefined
-          ? String(data[key])
-          : ''
-      );
-    });
-
-    // remove leftovers
-    renderedHtml = renderedHtml.replace(/\{\{.*?\}\}/g, '');
-
-    return renderedHtml;
-  }
-
-  fillTemplate(sourceElementId: string, data: Record<string, any>): HTMLElement {
-    const element = document.getElementById(sourceElementId);
-
-    if (!element) {
-      throw new Error(`Element with id "${sourceElementId}" not found`);
+        while (htmlString.includes('{{')) {
+            const start = htmlString.indexOf('{{');
+            const end = htmlString.indexOf('}}', start + INDEX_START_OFFSET);
+            if (end === INDEX_NOT_FOUND) {
+                break;
+            }
+            htmlString =
+                htmlString.slice(0, start) +
+                htmlString.slice(end + INDEX_END_OFFSET);
+        }
+        return htmlString;
     }
 
-    let html: string;
+    private fillKeys(html: string, data: Record<string, unknown>): string {
+        let renderedHtml = html;
 
-    if (element instanceof HTMLTemplateElement) {
-      const container = document.createElement('div');
-      container.appendChild(element.content.cloneNode(true));
-      html = container.innerHTML;
-    } else {
-      html = element.outerHTML;
+        for (const key of Object.keys(data)) {
+            const placeholder = `{{${key}}}`;
+            renderedHtml = renderedHtml.replaceAll(
+                new RegExp(placeholder, 'g'),
+                data[key] !== null && data[key] !== undefined
+                    ? String(data[key])
+                    : '',
+            );
+        }
+
+        renderedHtml = this.fillBrackets(renderedHtml);
+
+        return renderedHtml;
     }
 
-    const renderedHtml = this.fillKeys(html, data);
+    fillTemplate(
+        sourceElementId: string,
+        data: Record<string, unknown>,
+    ): HTMLElement {
+        const element = document.querySelector(sourceElementId);
 
-    const wrapper = document.createElement('div');
-    wrapper.innerHTML = renderedHtml;
+        if (!element) {
+            throw new Error(`Element with id "${sourceElementId}" not found`);
+        }
 
-    return wrapper.firstElementChild as HTMLElement || wrapper;
-  }
+        let html: string;
 
+        if (element instanceof HTMLTemplateElement) {
+            const container = document.createElement('div');
+            container.append(element.content.cloneNode(true));
+            html = container.innerHTML;
+        } else {
+            html = element.outerHTML;
+        }
+
+        const renderedHtml = this.fillKeys(html, data);
+
+        const wrapper = document.createElement('div');
+        wrapper.innerHTML = renderedHtml;
+
+        return (wrapper.firstElementChild as HTMLElement) || wrapper;
+    }
 }
 
 export const templateLoader = new TemplateLoader();
