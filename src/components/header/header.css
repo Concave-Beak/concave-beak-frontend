@@ -17,8 +17,12 @@
   transition: background-color 0.2s ease;
 }
 
-.theme-changing .header-logo svg {
+.logo-shake {
   animation: logo-shake 0.5s ease-in-out;
+}
+
+.logo-spin {
+  animation: logo-spin 1.0s cubic-bezier(.34, 1.56, .64, 1);
 }
 
 .header-logo {
@@ -94,5 +98,15 @@
 
   75% {
     transform: rotate(-20deg);
+  }
+}
+
+@keyframes logo-spin {
+  from {
+    transform: rotate(-15deg);
+  }
+
+  to {
+    transform: rotate(345deg);
   }
 }
