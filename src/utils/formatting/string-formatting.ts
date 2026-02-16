@@ -1,16 +1,16 @@
 export function stringFormatMaxLength(
-  strBase: string,
-  absoluteLength: number,
-  shouldAddEllipsis: boolean
+    stringBase: string,
+    absoluteLength: number,
+    shouldAddEllipsis: boolean,
 ): string {
-  if (strBase.length <= absoluteLength) {
-    return strBase;
-  }
+    if (stringBase.length <= absoluteLength) {
+        return stringBase;
+    }
 
-  if (shouldAddEllipsis) {
-    const truncatedLength = Math.max(0, absoluteLength - 3);
-    return strBase.slice(0, truncatedLength) + "...";
-  }
+    if (shouldAddEllipsis) {
+        const truncatedLength = Math.max(0, absoluteLength - '...'.length);
+        return stringBase.slice(0, truncatedLength) + '...';
+    }
 
-  return strBase.slice(0, absoluteLength);
+    return stringBase.slice(0, absoluteLength);
 }

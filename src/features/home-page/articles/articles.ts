@@ -1,5 +1,5 @@
 import './articles.css';
-import { type EventManagerUnsubscribeFunc } from '../../../utils/events/event-manager';
+import { type EventManagerUnsubscribeFunction } from '../../../utils/events/event-manager';
 import { templateLoader } from '../../../utils/templating/template-loader';
 
 import { ArticleHomePage } from '../../../types/articles/article-home-page';
@@ -25,7 +25,7 @@ const articlesFilledTemplate: ArticleHomePage[] = [
 
 export class HomePageArticles {
     private _template?: DocumentFragment;
-    private unsubscribe: EventManagerUnsubscribeFunc[] = [];
+    private unsubscribe: EventManagerUnsubscribeFunction[] = [];
 
     get template(): DocumentFragment {
         return this._template!;

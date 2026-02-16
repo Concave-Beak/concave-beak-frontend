@@ -1,84 +1,96 @@
 // utils/eventManager.ts
 import type { AppEvents } from '../../types/events/app-event';
+import { INDEX_NOT_FOUND } from '../common';
 
-export type EventManagerUnsubscribeFunc = (() => void);
+export type EventManagerUnsubscribeFunction = () => void;
+export type EventFunction<T extends keyof AppEvents> = (
+    data: AppEvents[T],
+) => void;
 
 export class EventManager {
-  private customListeners = new Map<string, Function[]>();
+    private customListeners = new Map<
+        string,
+        EventFunction<keyof AppEvents>[]
+    >();
 
-  // ========== CUSTOM EVENTS (Pub/Sub) ==========
+    // ========== CUSTOM EVENTS (Pub/Sub) ==========
 
-  on<T extends keyof AppEvents>(
-    event: T,
-    handler: (data: AppEvents[T]) => void
-  ): EventManagerUnsubscribeFunc {
-    if (!this.customListeners.has(event)) {
-      this.customListeners.set(event, []);
+    on<T extends keyof AppEvents>(
+        event: T,
+        handler: (data: AppEvents[T]) => void,
+    ): EventManagerUnsubscribeFunction {
+        if (!this.customListeners.has(event)) {
+            this.customListeners.set(event, []);
+        }
+
+        const listeners = this.customListeners.get(event)!;
+        listeners.push(handler);
+
+        return () => this.off(event, handler);
     }
 
-    const listeners = this.customListeners.get(event)!;
-    listeners.push(handler);
-
-    return () => this.off(event, handler);
-  }
-
-  emit<T extends keyof AppEvents>(event: T, data: AppEvents[T]): void {
-    const listeners = this.customListeners.get(event);
-    if (listeners) {
-      listeners.forEach(handler => handler(data));
+    emit<T extends keyof AppEvents>(event: T, data: AppEvents[T]): void {
+        const listeners = this.customListeners.get(event);
+        if (listeners) {
+            for (const handler of listeners) {
+                handler(data);
+            }
+        }
     }
-  }
 
-  onDOM<T = any>(
-    eventName: string,
-    handler: (event: Event | CustomEvent<T>) => void,
-    options: {
-      target?: EventTarget;
-      eventOptions?: AddEventListenerOptions;
-    } = {}
-  ): EventManagerUnsubscribeFunc {
-    const { target = document, eventOptions } = options;
+    onDOM<T extends keyof AppEvents>(
+        eventName: string,
+        handler: (event: Event | CustomEvent<T>) => void,
+        options: {
+            target?: EventTarget;
+            eventOptions?: AddEventListenerOptions;
+        } = {},
+    ): EventManagerUnsubscribeFunction {
+        const { target = document, eventOptions } = options;
 
-    const listener = (event: Event) => {
-      handler(event);
-    };
+        const listener = (event: Event) => {
+            handler(event);
+        };
 
-    target.addEventListener(eventName, listener, eventOptions);
+        target.addEventListener(eventName, listener, eventOptions);
 
-    return () => {
-      target.removeEventListener(eventName, listener, eventOptions);
-    };
-  }
-
-  emitDOM<T = any>(
-    eventName: string,
-    detail?: T,
-    options: {
-      target?: EventTarget;
-      eventInit?: CustomEventInit<T>;
-    } = {}
-  ): void {
-    const { target = document, eventInit = {} } = options;
-
-    const event = new CustomEvent(eventName, {
-      detail,
-      bubbles: true,
-      composed: true,
-      ...eventInit
-    });
-
-    target.dispatchEvent(event);
-  }
-
-  private off<T extends keyof AppEvents>(event: T, handler: Function): void {
-    const listeners = this.customListeners.get(event);
-    if (listeners) {
-      const index = listeners.indexOf(handler);
-      if (index > -1) {
-        listeners.splice(index, 1);
-      }
+        return () => {
+            target.removeEventListener(eventName, listener, eventOptions);
+        };
     }
-  }
+
+    emitDOM<T extends keyof AppEvents>(
+        eventName: string,
+        detail?: T,
+        options: {
+            target?: EventTarget;
+            eventInit?: CustomEventInit<T>;
+        } = {},
+    ): void {
+        const { target = document, eventInit = {} } = options;
+
+        const event = new CustomEvent(eventName, {
+            detail,
+            bubbles: true,
+            composed: true,
+            ...eventInit,
+        });
+
+        target.dispatchEvent(event);
+    }
+
+    private off<T extends keyof AppEvents>(
+        event: T,
+        handler: EventFunction<keyof AppEvents>,
+    ): void {
+        const listeners = this.customListeners.get(event);
+        if (listeners) {
+            const index = listeners.indexOf(handler);
+            if (index !== INDEX_NOT_FOUND) {
+                listeners.splice(index, 1);
+            }
+        }
+    }
 }
 
 export const eventManager = new EventManager();

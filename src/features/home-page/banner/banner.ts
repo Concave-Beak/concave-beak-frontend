@@ -1,7 +1,7 @@
 import './banner.css';
 import {
     eventManager,
-    type EventManagerUnsubscribeFunc,
+    type EventManagerUnsubscribeFunction,
 } from '../../../utils/events/event-manager';
 import { templateLoader } from '../../../utils/templating/template-loader';
 
@@ -14,7 +14,7 @@ const bannerFilledTemplate = {
 
 export class HomePageBanner {
     private _template: HTMLElement | null = null;
-    private unsubscribe: EventManagerUnsubscribeFunc[] = [];
+    private unsubscribe: EventManagerUnsubscribeFunction[] = [];
 
     get template(): HTMLElement | null {
         return this._template;
@@ -34,7 +34,7 @@ export class HomePageBanner {
 
     bindEvents() {
         this.unsubscribe.push(
-            eventManager.onDOM('scroll', () => this.scrollHideBanner(), {
+            eventManager.onDOM('scroll', this.scrollHideBanner, {
                 target: window,
             }),
         );

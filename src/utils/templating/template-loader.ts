@@ -1,8 +1,9 @@
+import { INDEX_NOT_FOUND } from '../common';
+
 class TemplateLoader {
     private fillBrackets(htmlString: string): string {
         const INDEX_START_OFFSET = 2;
         const INDEX_END_OFFSET = 2;
-        const INDEX_NOT_FOUND = -1;
 
         while (htmlString.includes('{{')) {
             const start = htmlString.indexOf('{{');
