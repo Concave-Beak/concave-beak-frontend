@@ -29,7 +29,7 @@ export default defineConfig([
     },
 
     rules: {
-        "no-undef": "off",
+      "no-undef": "off",
 
       // TypeScript
       ...tsPlugin.configs.recommended.rules,

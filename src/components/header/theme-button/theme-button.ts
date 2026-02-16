@@ -4,8 +4,12 @@ import {
 } from '../../../utils/events/event-manager';
 import './theme-button.css';
 
+const LOGO_SPIN_CHANCE = 3;
+const LOGO_SPIN_TIMEOUT = 1000;
+const LOGO_SHAKE_TIMEOUT = 500;
+
 export class ThemeButtonComponent {
-    private button: HTMLButtonElement | null = null;
+    private button: HTMLButtonElement | undefined = undefined;
     private unsubscribe: EventManagerUnsubscribeFunction[] = [];
 
     async init() {
@@ -14,7 +18,11 @@ export class ThemeButtonComponent {
     }
 
     private findButton() {
-        this.button = document.querySelector('#theme-button');
+        const button = document.querySelector('#theme-button');
+        if (!button) {
+            return;
+        }
+        this.button = button as HTMLButtonElement;
     }
 
     private bindEvents() {
@@ -34,16 +42,20 @@ export class ThemeButtonComponent {
         html.dataset.theme = nextTheme;
         localStorage.setItem('theme', nextTheme);
 
-        if (!logo) return;
+        if (!logo) {
+            return;
+        }
 
-        const chance = Math.floor(Math.random() * 3 + 1);
+        // Disable warning since this is not critical.
+        // eslint-disable-next-line sonarjs/pseudo-random
+        const chance = Math.floor(Math.random() * LOGO_SPIN_CHANCE + 1);
 
-        if (chance % 3 == 0) {
+        if (chance % LOGO_SPIN_CHANCE === 0) {
             logo.classList.add('logo-spin');
 
             setTimeout(() => {
                 logo?.classList.remove('logo-spin');
-            }, 1000);
+            }, LOGO_SPIN_TIMEOUT);
             return;
         }
 
@@ -51,11 +63,13 @@ export class ThemeButtonComponent {
 
         setTimeout(() => {
             logo?.classList.remove('logo-shake');
-        }, 500);
+        }, LOGO_SHAKE_TIMEOUT);
     }
 
     destroy() {
-        this.unsubscribe.forEach((unsub) => unsub());
+        for (const unsub of this.unsubscribe) {
+            unsub();
+        }
         this.unsubscribe = [];
     }
 }

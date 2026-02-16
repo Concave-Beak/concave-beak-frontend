@@ -5,18 +5,27 @@ import {
 } from '../../../utils/events/event-manager';
 import { templateLoader } from '../../../utils/templating/template-loader';
 
-// TODO use actual api
 const bannerFilledTemplate = {
     title: 'Title',
     description: 'lorrem',
     imageUrl: '/toucan-shannon-potter-unsplash.jpg',
 };
 
+const BANNER_SCROLL_HEIGHT_MULTIPLIER = 1.3;
+const BANNER_SCROLL_HEIGHT_MIN = 1;
+const BANNER_OPACITY_MIN = 1;
+const BANNER_Y_MULTIPLIER = -50;
+const BANNER_BLUR_MULTIPLER = 3;
+
+const TEXT_OPACITY_MIN = 1;
+const TEXT_OPACITY_MULTIPLIER = 1.5;
+const TEXT_Y_MULTIPLER = -100;
+
 export class HomePageBanner {
-    private _template: HTMLElement | null = null;
+    private _template: HTMLElement | undefined = undefined;
     private unsubscribe: EventManagerUnsubscribeFunction[] = [];
 
-    get template(): HTMLElement | null {
+    get template(): HTMLElement | undefined {
         return this._template;
     }
 
@@ -35,7 +44,7 @@ export class HomePageBanner {
     bindEvents() {
         this.unsubscribe.push(
             eventManager.onDOM('scroll', this.scrollHideBanner, {
-                target: window,
+                target: globalThis,
             }),
         );
     }
@@ -48,18 +57,27 @@ export class HomePageBanner {
 
         if (!ticking) {
             requestAnimationFrame(() => {
-                const scrollTop = window.pageYOffset;
-                const progress = Math.min((scrollTop / bannerHeight) * 2, 1);
+                const scrollTop = globalThis.pageYOffset;
+                const progress = Math.min(
+                    (scrollTop / bannerHeight) *
+                        BANNER_SCROLL_HEIGHT_MULTIPLIER,
+                    BANNER_SCROLL_HEIGHT_MIN,
+                );
 
-                banner!.style.opacity = (1 - progress).toString();
-                banner!.style.transform = `translateY(${progress * -50}px)`;
-                banner!.style.filter = `blur(${progress * 3}px)`;
+                banner!.style.opacity = (
+                    BANNER_OPACITY_MIN - progress
+                ).toString();
+                banner!.style.transform = `translateY(${progress * BANNER_Y_MULTIPLIER}px)`;
+                banner!.style.filter = `blur(${progress * BANNER_BLUR_MULTIPLER}px)`;
 
                 const text =
                     banner!.querySelector<HTMLDivElement>('.banner-text');
                 if (text) {
-                    text!.style.opacity = (1 - progress * 1.5).toString();
-                    text.style.transform = `translate(-50%, ${progress * -20}px)`;
+                    text!.style.opacity = (
+                        TEXT_OPACITY_MIN -
+                        progress * TEXT_OPACITY_MULTIPLIER
+                    ).toString();
+                    text.style.transform = `translate(-50%, ${progress * TEXT_Y_MULTIPLER}px)`;
                 }
 
                 ticking = false;
@@ -69,7 +87,9 @@ export class HomePageBanner {
     }
 
     destroy() {
-        this.unsubscribe.forEach((unsub) => unsub());
+        for (const unsub of this.unsubscribe) {
+            unsub();
+        }
         this.unsubscribe = [];
     }
 }

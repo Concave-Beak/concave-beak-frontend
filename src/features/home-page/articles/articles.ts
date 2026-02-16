@@ -39,23 +39,23 @@ export class HomePageArticles {
     loadTemplate() {
         const fragment = document.createDocumentFragment();
 
-        articlesFilledTemplate.forEach((article) => {
-            console.log(article);
-            fragment.appendChild(
+        for (const article of articlesFilledTemplate) {
+            fragment.append(
                 templateLoader.fillTemplate(
                     '#home-page-articles-template',
                     article.toRecord(),
                 ),
             );
-        });
-
+        }
         this._template = fragment;
     }
 
     bindEvents() {}
 
     destroy() {
-        this.unsubscribe.forEach((unsub) => unsub());
+        for (const unsub of this.unsubscribe) {
+            unsub();
+        }
         this.unsubscribe = [];
     }
 }

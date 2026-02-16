@@ -12,7 +12,7 @@ export class Article {
         date: Date,
     ) {
         if (!_link || !_title || !_content || !date) {
-            throw Error('Invalid article');
+            throw new Error('Invalid article');
         }
         this._lastUpdate = dateFormatDMY(date);
     }
@@ -33,7 +33,7 @@ export class Article {
         return this._lastUpdate;
     }
 
-    toRecord(): Record<string, any> {
+    toRecord(): Record<string, unknown> {
         return {
             link: this._link,
             title: this._title,
