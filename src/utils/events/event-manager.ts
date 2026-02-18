@@ -1,4 +1,3 @@
-// utils/eventManager.ts
 import type { AppEvents } from '../../types/events/app-event';
 import { INDEX_NOT_FOUND } from '../common';
 
@@ -8,29 +7,28 @@ export type EventFunction<T extends keyof AppEvents> = (
 ) => void;
 
 export class EventManager {
-    private customListeners = new Map<
-        string,
-        EventFunction<keyof AppEvents>[]
-    >();
-
-    // ========== CUSTOM EVENTS (Pub/Sub) ==========
+    private customListeners: {
+        [K in keyof AppEvents]?: EventFunction<K>[];
+    } = {};
 
     on<T extends keyof AppEvents>(
         event: T,
         handler: (data: AppEvents[T]) => void,
     ): EventManagerUnsubscribeFunction {
-        if (!this.customListeners.has(event)) {
-            this.customListeners.set(event, []);
+        if (!this.customListeners[event]) {
+            this.customListeners[event] = [];
         }
 
-        const listeners = this.customListeners.get(event)!;
-        listeners.push(handler);
+        const listeners = this.customListeners[event];
+        if (listeners) {
+            listeners.push(handler);
+        }
 
         return () => this.off(event, handler);
     }
 
     emit<T extends keyof AppEvents>(event: T, data: AppEvents[T]): void {
-        const listeners = this.customListeners.get(event);
+        const listeners = this.customListeners[event];
         if (listeners) {
             for (const handler of listeners) {
                 handler(data);
@@ -81,9 +79,9 @@ export class EventManager {
 
     private off<T extends keyof AppEvents>(
         event: T,
-        handler: EventFunction<keyof AppEvents>,
+        handler: EventFunction<T>,
     ): void {
-        const listeners = this.customListeners.get(event);
+        const listeners = this.customListeners[event];
         if (listeners) {
             const index = listeners.indexOf(handler);
             if (index !== INDEX_NOT_FOUND) {

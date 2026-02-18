@@ -1,6 +1,11 @@
 import headerTemplate from './header.template.html?raw';
 import './header.css';
 import { ThemeButtonComponent } from './theme-button/theme-button';
+import { eventManager } from '../../utils/events/event-manager';
+
+const LOGO_SPIN_CHANCE = 3;
+const LOGO_SPIN_TIMEOUT = 1000;
+const LOGO_SHAKE_TIMEOUT = 500;
 
 export class HeaderComponent {
     private template: string = '';
@@ -26,5 +31,34 @@ export class HeaderComponent {
         }
     }
 
-    private bindEvents() {}
+    private bindEvents() {
+        eventManager.on('theme:toggle', this.logoShake);
+    }
+
+    private logoShake() {
+        const logo = document.querySelector<HTMLElement>('.header-logo svg');
+
+        if (!logo) {
+            return;
+        }
+
+        // Disable warning since this is not critical.
+        // eslint-disable-next-line sonarjs/pseudo-random
+        const chance = Math.floor(Math.random() * LOGO_SPIN_CHANCE + 1);
+
+        if (chance % LOGO_SPIN_CHANCE === 0) {
+            logo.classList.add('logo-spin');
+
+            setTimeout(() => {
+                logo?.classList.remove('logo-spin');
+            }, LOGO_SPIN_TIMEOUT);
+            return;
+        }
+
+        logo.classList.add('logo-shake');
+
+        setTimeout(() => {
+            logo?.classList.remove('logo-shake');
+        }, LOGO_SHAKE_TIMEOUT);
+    }
 }
