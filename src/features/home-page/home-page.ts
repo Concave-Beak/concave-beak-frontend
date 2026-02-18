@@ -23,10 +23,11 @@ export class HomePage {
 
     private render() {
         const container = document.querySelector('#home-page-content');
-        if (container) {
-            container.innerHTML = this.template;
-            this.element = container.firstElementChild as HTMLElement;
+        if (!container) {
+            return;
         }
+        container.innerHTML = this.template;
+        this.element = container.firstElementChild as HTMLElement;
     }
 
     private async loadComponents() {
