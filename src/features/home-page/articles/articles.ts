@@ -1,10 +1,11 @@
 import './articles.css';
 import { type EventManagerUnsubscribeFunction } from '../../../utils/events/event-manager';
 import { templateLoader } from '../../../utils/templating/template-loader';
+import articleTemplate from './articles.template.html?raw';
 
 import { ArticleHomePage } from '../../../types/articles/article-home-page';
 
-const articlesFilledTemplate: ArticleHomePage[] = [
+const articles: ArticleHomePage[] = [
     new ArticleHomePage(
         'link1',
         'quisque faucibus ex sapien vitae pellentesque sem placerat in id cursus mi.',
@@ -24,33 +25,37 @@ const articlesFilledTemplate: ArticleHomePage[] = [
 ];
 
 export class HomePageArticles {
-    private _template?: DocumentFragment;
+    private _template: string = '';
     private unsubscribe: EventManagerUnsubscribeFunction[] = [];
+    private _filledHtml!: DocumentFragment;
 
-    get template(): DocumentFragment {
-        return this._template!;
+    get filledHtml() {
+        return this._filledHtml;
     }
 
     async init() {
         this.loadTemplate();
+        this.fillTemplate();
         this.bindEvents();
     }
 
-    loadTemplate() {
+    private fillTemplate() {
         const fragment = document.createDocumentFragment();
 
-        for (const article of articlesFilledTemplate) {
+        for (const article of articles) {
             fragment.append(
-                templateLoader.fillTemplate(
-                    '#home-page-articles-template',
-                    article.toRecord(),
-                ),
+                templateLoader.fillTemplate(this._template, article.toJson()),
             );
         }
-        this._template = fragment;
+
+        this._filledHtml = fragment;
     }
 
-    bindEvents() {}
+    private loadTemplate() {
+        this._template = articleTemplate.trim();
+    }
+
+    private bindEvents() {}
 
     destroy() {
         for (const unsub of this.unsubscribe) {

@@ -41,9 +41,9 @@
   --font-family-base: Inter, system-ui, -apple-system, BlinkMacSystemFont,
     "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
 
-  /* Banner */
-  --color-banner-background: var(--primary-color-500);
-  --opacity-banner-image: 0.75;
+  /* Hero */
+  --color-hero-background: var(--primary-color-500);
+  --opacity-hero-image: 0.75;
 
 }
 
@@ -59,9 +59,9 @@ html[data-theme="dark"] {
   --color-text-hidden: var(--primary-color-300);
   --color-border: var(--primary-color-300);
 
-  /* Banner */
-  --color-banner-background: var(--primary-color-100);
-  --opacity-banner-image: 0.4;
+  /* Hero */
+  --color-hero-background: var(--primary-color-100);
+  --opacity-hero-image: 0.4;
 
   /* Theme-specific icon visibility */
   .icon-sun {

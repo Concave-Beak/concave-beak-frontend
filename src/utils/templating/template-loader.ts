@@ -1,7 +1,7 @@
 import { INDEX_NOT_FOUND } from '../common';
 
 class TemplateLoader {
-    private fillBrackets(htmlString: string): string {
+    private eraseBrackets(htmlString: string): string {
         const INDEX_START_OFFSET = 2;
         const INDEX_END_OFFSET = 2;
 
@@ -31,37 +31,18 @@ class TemplateLoader {
             );
         }
 
-        renderedHtml = this.fillBrackets(renderedHtml);
+        renderedHtml = this.eraseBrackets(renderedHtml);
 
         return renderedHtml;
     }
 
-    fillTemplate(
-        sourceElementId: string,
-        data: Record<string, unknown>,
-    ): HTMLElement {
-        const element = document.querySelector(sourceElementId);
+    fillTemplate(source: string, data: Record<string, unknown>): HTMLElement {
+        const renderedHtml = this.fillKeys(source, data);
 
-        if (!element) {
-            throw new Error(`Element with id "${sourceElementId}" not found`);
-        }
+        const template = document.createElement('template');
+        template.innerHTML = renderedHtml.trim();
 
-        let html: string;
-
-        if (element instanceof HTMLTemplateElement) {
-            const container = document.createElement('div');
-            container.append(element.content.cloneNode(true));
-            html = container.innerHTML;
-        } else {
-            html = element.outerHTML;
-        }
-
-        const renderedHtml = this.fillKeys(html, data);
-
-        const wrapper = document.createElement('div');
-        wrapper.innerHTML = renderedHtml;
-
-        return (wrapper.firstElementChild as HTMLElement) || wrapper;
+        return template.content.cloneNode(true) as HTMLElement;
     }
 }
 

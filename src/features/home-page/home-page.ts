@@ -2,12 +2,12 @@ import './home-page.css';
 import homePageTemplate from './home-page.template.html?raw';
 
 import { HomePageArticles } from './articles/articles';
-import { HomePageBanner } from './banner/banner';
+import { HomePageHero } from './hero/hero';
 
 export class HomePage {
     private template: string = '';
     private element: HTMLElement | undefined = undefined;
-    private banner: HomePageBanner = new HomePageBanner();
+    private hero: HomePageHero = new HomePageHero();
     private articles: HomePageArticles = new HomePageArticles();
 
     async init() {
@@ -30,26 +30,26 @@ export class HomePage {
     }
 
     private async loadComponents() {
-        await Promise.all([this.banner.init(), this.articles.init()]);
+        await Promise.all([this.hero.init(), this.articles.init()]);
 
-        const bannerContainer = document.querySelector('#home-page-banner');
+        const heroContainer = document.querySelector('#home-page-hero');
         const articlesContainer = document.querySelector(
             '#home-page-articles-list',
         );
 
-        if (bannerContainer && this.banner.template) {
-            bannerContainer.replaceWith(this.banner.template!);
+        if (heroContainer && this.hero.filledHtml) {
+            heroContainer.replaceChildren(this.hero.filledHtml);
         }
 
-        if (articlesContainer && this.articles.template) {
-            articlesContainer.replaceChildren(this.articles.template);
+        if (articlesContainer && this.articles.filledHtml) {
+            articlesContainer.replaceChildren(this.articles.filledHtml);
         }
     }
 
     private bindEvents() {}
 
     destroy() {
-        this.banner.destroy();
+        this.hero.destroy();
         this.articles.destroy();
     }
 }

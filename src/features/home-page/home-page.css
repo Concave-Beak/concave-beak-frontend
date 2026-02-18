@@ -1,5 +1,5 @@
 .home-page-content {
-  --banner-height: 90vh;
+  --hero-height: 90vh;
   --article-padding-horizontal: calc(var(--container-padding) + 5%);
   --article-padding-vertical: 5%;
   --article-gap: 10vh;

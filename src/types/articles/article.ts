@@ -33,7 +33,7 @@ export class Article {
         return this._lastUpdate;
     }
 
-    toRecord(): Record<string, unknown> {
+    toJson(): Record<string, unknown> {
         return {
             link: this._link,
             title: this._title,
