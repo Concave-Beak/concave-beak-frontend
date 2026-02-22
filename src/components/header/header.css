@@ -27,15 +27,14 @@
 
 .header-logo {
   svg {
-    transform: rotate(-15deg);
-    height: 30px;
+    height: 45px;
     width: auto;
     fill: var(--color-text);
     transition: fill 0.2s ease, transform 0.2s ease;
   }
 
   &:hover svg {
-    transform: rotate(0deg);
+    transform: rotate(15deg);
   }
 }
 
@@ -85,28 +84,28 @@
 
   0%,
   100% {
-    transform: rotate(-15deg);
+    transform: rotate(0deg);
   }
 
   25% {
-    transform: rotate(-20deg);
+    transform: rotate(-5deg);
   }
 
   50% {
-    transform: rotate(-10deg);
+    transform: rotate(5deg);
   }
 
   75% {
-    transform: rotate(-20deg);
+    transform: rotate(-5deg);
   }
 }
 
 @keyframes logo-spin {
   from {
-    transform: rotate(-15deg);
+    transform: rotate(0deg);
   }
 
   to {
-    transform: rotate(345deg);
+    transform: rotate(360deg);
   }
 }

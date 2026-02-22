@@ -1,7 +1,10 @@
 import headerTemplate from './header.template.html?raw';
 import './header.css';
 import { ThemeButtonComponent } from './theme-button/theme-button';
-import { eventManager } from '../../utils/events/event-manager';
+import {
+    eventManager,
+    type EventManagerUnsubscribeFunction,
+} from '../../utils/events/event-manager';
 
 const LOGO_SPIN_CHANCE = 3;
 const LOGO_SPIN_TIMEOUT = 1000;
@@ -11,6 +14,7 @@ export class HeaderComponent {
     private template: string = '';
     private element: HTMLElement | undefined = undefined;
     private themeButton: ThemeButtonComponent = new ThemeButtonComponent();
+    private unsubscribe: EventManagerUnsubscribeFunction[] = [];
 
     async init() {
         this.loadTemplate();
@@ -25,10 +29,11 @@ export class HeaderComponent {
 
     private render() {
         const container = document.querySelector('#app-header');
-        if (container) {
-            container.innerHTML = this.template;
-            this.element = container.firstElementChild as HTMLElement;
+        if (!container) {
+            return;
         }
+        container.innerHTML = this.template;
+        this.element = container.firstElementChild as HTMLElement;
     }
 
     private bindEvents() {
@@ -60,5 +65,12 @@ export class HeaderComponent {
         setTimeout(() => {
             logo?.classList.remove('logo-shake');
         }, LOGO_SHAKE_TIMEOUT);
+    }
+
+    destroy() {
+        for (const unsub of this.unsubscribe) {
+            unsub();
+        }
+        this.unsubscribe = [];
     }
 }
