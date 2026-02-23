@@ -48,7 +48,9 @@ export class HomePageHero {
         const fragment = document.createDocumentFragment();
 
         for (const hero of heroes) {
-            fragment.append(templateLoader.fillTemplate(this._template, hero));
+            fragment.append(
+                templateLoader.fillTemplateClone(this._template, hero),
+            );
         }
 
         this._filledHtml = fragment;

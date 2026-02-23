@@ -1,35 +1,57 @@
-import type { IErrorObject } from '../../utils/errors/error-handler';
-import { eventManager } from '../../utils/events/event-manager';
+import type { IBaseError } from '../../utils/errors/i-base-error';
+import {
+    eventManager,
+    type EventManagerUnsubscribeFunction,
+} from '../../utils/events/event-manager';
+import { ErrorToastNotification } from '../toast/error/error-toast';
 
-class ErrorComponentManager {
+export class ErrorComponentManager {
+    private unsubscribe: EventManagerUnsubscribeFunction[] = [];
+
     constructor() {}
 
-    bindEvents() {
-        eventManager.on('app:error', this.handleError);
+    init() {
+        this.bindEvents();
     }
 
-    handleError(error: object) {
-        const errorObject = error as IErrorObject;
+    private bindEvents() {
+        this.unsubscribe.push(
+            eventManager.on('app:error', (data: { errorObject: object }) => {
+                this.handleError(data);
+            }),
+        );
+    }
+
+    private handleError(data: { errorObject: object }) {
+        const errorObject = data.errorObject as IBaseError;
 
         switch (errorObject.presentation) {
-            case 'console': {
+            case 'console':
                 this.printConsole(errorObject);
                 break;
-            }
-            case 'toast': {
+            case 'toast':
                 this.pushToast(errorObject);
                 break;
-            }
+            case 'modal':
         }
     }
 
-    printConsole(error: IErrorObject) {
-        console.log(
+    private printConsole(error: IBaseError) {
+        console.error(
             `${error.severity.toUpperCase()}: (${error.context}) ${error.message} (${error.code})`,
         );
     }
 
-    pushToast(error: IErrorObject) {}
-}
+    private pushToast(error: IBaseError) {
+        eventManager.emit('notification:error', {
+            notificationObject: new ErrorToastNotification(error),
+        });
+    }
 
-export const errorComponentManager = new ErrorComponentManager();
+    destroy() {
+        for (const unsub of this.unsubscribe) {
+            unsub();
+        }
+        this.unsubscribe = [];
+    }
+}

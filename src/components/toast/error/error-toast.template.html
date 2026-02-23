@@ -1,9 +1,15 @@
-<div class="error-alert-top-text">
-    <div class="error-alert-severity">{{severity}}!</div>
-    <div class="error-alert-context">{{context}}!</div>
-</div>
+<div class="error-toast-notification {{errorClass}} ">
+    <div class="error-toast-separator-left">
+        <div class="error-toast-svg error-toast-info">{{svgInfo}}</div>
+        <div class="error-toast-svg error-toast-warn">{{svgWarn}}</div>
+        <div class="error-toast-svg error-toast-error">{{svgError}}</div>
+    </div>
+    <div class="error-toast-separator-right">
+        <div class="error-toast-header">
+            <div class="error-toast-severity">{{severity}}!</div>
+            <div class="error-toast-context">{{context}}</div>
+        </div>
 
-<div class="error-alert-bottom-text">
-    <div class="error-alert-message">{{message}}</div>
-    <div class="error-alert-code">({{code}})</div>
+        <div class="error-toast-message">{{message}} ({{code}})</div>
+    </div>
 </div>

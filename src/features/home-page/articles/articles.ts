@@ -44,7 +44,10 @@ export class HomePageArticles {
 
         for (const article of articles) {
             fragment.append(
-                templateLoader.fillTemplate(this._template, article.toJson()),
+                templateLoader.fillTemplateClone(
+                    this._template,
+                    article.toJson(),
+                ),
             );
         }
 

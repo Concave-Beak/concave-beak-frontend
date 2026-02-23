@@ -18,7 +18,11 @@ class TemplateLoader {
         return htmlString;
     }
 
-    private fillKeys(html: string, data: Record<string, unknown>): string {
+    public fillKeys(
+        html: string,
+        data: Record<string, unknown>,
+        eraseBrackets?: boolean,
+    ): string {
         let renderedHtml = html;
 
         for (const key of Object.keys(data)) {
@@ -31,18 +35,35 @@ class TemplateLoader {
             );
         }
 
-        renderedHtml = this.eraseBrackets(renderedHtml);
+        if (!!eraseBrackets) {
+            renderedHtml = this.eraseBrackets(renderedHtml);
+        }
 
         return renderedHtml;
     }
 
-    fillTemplate(source: string, data: Record<string, unknown>): HTMLElement {
+    fillTemplateClone(
+        source: string,
+        data: Record<string, unknown>,
+    ): HTMLElement {
         const renderedHtml = this.fillKeys(source, data);
 
         const template = document.createElement('template');
         template.innerHTML = renderedHtml.trim();
 
         return template.content.cloneNode(true) as HTMLElement;
+    }
+
+    fillTemplateElement(
+        source: string,
+        data: Record<string, unknown>,
+    ): HTMLElement {
+        const renderedHtml = this.fillKeys(source, data);
+
+        const template = document.createElement('template');
+        template.innerHTML = renderedHtml.trim();
+
+        return template.content.firstElementChild as HTMLElement;
     }
 }
 

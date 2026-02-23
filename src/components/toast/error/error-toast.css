@@ -1,0 +1,102 @@
+/* All of these are indeed hardcoded, and they should remain the same, perhaps
+only change it to variables, but don't try to make it responsive, PLEASE */
+.error-toast-notification {
+  --error-header-text-color: var()
+}
+
+.error-toast-notification {
+  height: 100%;
+  width: 100%;
+
+  display: flex;
+  padding: 8px;
+  border-radius: 8px;
+  background-color: var(--color-notification-background);
+
+  gap: 2%;
+}
+
+.error-toast-class-high {
+  --error-header-text-color: var(--error-color-500);
+  --error-svg-color: var();
+
+  .error-toast-info {
+    display: none;
+  }
+
+  .error-toast-warn {
+    display: none;
+  }
+}
+
+.error-toast-class-info {
+  --error-header-text-color: var(--secondary-color-500);
+
+  .error-toast-error {
+    display: none;
+  }
+
+  .error-toast-warn {
+    display: none;
+  }
+}
+
+.error-toast-class-warning {
+  --error-header-text-color: var(--warning-color-500);
+
+  .error-toast-error {
+    display: none;
+  }
+
+  .error-toast-info {
+    display: none;
+  }
+}
+
+.error-toast-svg {
+  height: 40px;
+  width: 40px;
+  border-radius: 50%;
+  background-color: var(--error-header-text-color);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.error-toast-svg svg {
+  width: 35px;
+  height: 35px;
+
+  fill: var(--color-text-inverse);
+  color: var(--color-text-inverse);
+  stroke: var(--color-text-inverse);
+  stroke-width: 20;
+}
+
+.error-toast-separator-right {
+  display: flex;
+  flex-direction: column;
+  row-gap: 15%;
+
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.error-toast-header {
+  font-weight: bold;
+  font-size: 13px;
+  color: var(--error-header-text-color);
+
+  display: flex;
+  gap: 0.5ch;
+
+  overflow: hidden;
+  text-overflow: ellipsis;
+
+}
+
+.error-toast-message {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}

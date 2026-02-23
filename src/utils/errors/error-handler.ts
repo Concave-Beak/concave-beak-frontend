@@ -1,31 +1,19 @@
+import type { IBaseError } from './i-base-error';
+
 import { eventManager } from '../events/event-manager';
 
-export type ErrorContext =
-    | 'home_page.hero_section.images'
-    | 'home_page.hero_section.title';
-
-export interface IErrorObject {
-    severity: 'info' | 'low' | 'medium' | 'high';
-    code: number;
-    context: ErrorContext;
-    message: string;
-    presentation?: 'console' | 'toast' | 'modal';
-
-    toJson(): Record<string, unknown>;
-}
-
 class ErrorHandler {
-    errorStack!: IErrorObject[];
+    errorStack!: IBaseError[];
 
     constructor() {
         this.errorStack = [];
     }
 
-    public pushError(error: IErrorObject) {
+    public pushError(error: IBaseError) {
         this.errorStack.push(error);
     }
 
-    public throw(error: IErrorObject) {
+    public throw(error: IBaseError) {
         eventManager.emit('app:error', { errorObject: error });
     }
 

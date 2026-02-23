@@ -1,4 +1,6 @@
 import { dateFormatDMY } from '../../../src/utils/formatting/date-formatting';
+import { errorHandler } from '../../utils/errors/error-handler';
+import { InternalServerErrorError } from '../../utils/errors/models/internal-server-error-error';
 
 export class Article {
     protected _lastUpdate: string;
@@ -12,7 +14,15 @@ export class Article {
         date: Date,
     ) {
         if (!_link || !_title || !_content || !date) {
-            throw new Error('Invalid article');
+            errorHandler.throw(
+                new InternalServerErrorError(
+                    'home_page.articles.load',
+                    'Could not load article, missing or corrupted data',
+                    'toast',
+                ),
+            );
+            this._lastUpdate = '';
+            return;
         }
         this._lastUpdate = dateFormatDMY(date);
     }
