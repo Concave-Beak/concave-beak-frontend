@@ -1,4 +1,4 @@
-export type ErrorSeverity = 'info' | 'warning' | 'high';
+export type ErrorType = 'info' | 'warning' | 'error';
 
 export type ErrorContext =
     | 'home_page.hero_section.images'
@@ -8,7 +8,7 @@ export type ErrorContext =
 export type ErrorPresentation = 'console' | 'toast' | 'modal';
 
 export interface IBaseError {
-    severity: ErrorSeverity;
+    severity: ErrorType;
     code: number;
     context: ErrorContext;
     message: string;

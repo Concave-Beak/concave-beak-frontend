@@ -14,9 +14,10 @@ only change it to variables, but don't try to make it responsive, PLEASE */
   background-color: var(--color-notification-background);
 
   gap: 2%;
+  font-size: 10px;
 }
 
-.error-toast-class-high {
+.error-toast-class-error {
   --error-header-text-color: var(--error-color-500);
   --error-svg-color: var();
 

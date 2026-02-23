@@ -1,7 +1,7 @@
 import {
     type ErrorContext,
     type ErrorPresentation,
-    type ErrorSeverity,
+    type ErrorType,
     type IBaseError,
 } from '../i-base-error';
 
@@ -12,7 +12,7 @@ const contextMap: Record<ErrorContext, string> = {
 };
 
 export class InternalServerErrorError implements IBaseError {
-    severity: ErrorSeverity;
+    severity: ErrorType;
     code: number;
 
     constructor(
@@ -20,7 +20,7 @@ export class InternalServerErrorError implements IBaseError {
         public message: string,
         public presentation: ErrorPresentation,
     ) {
-        this.severity = 'info';
+        this.severity = 'error';
         this.code = 500;
     }
 

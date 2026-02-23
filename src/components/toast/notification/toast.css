@@ -2,15 +2,15 @@
   position: fixed;
   top: 12.5%;
   right: 2%;
+
   width: var(--notification-width);
+
   display: flex;
   flex-direction: column;
+
   z-index: 100;
 
-
-  font-size: 10px;
-
-  gap: 5%;
+  gap: 1em;
 }
 
 .toast-item {

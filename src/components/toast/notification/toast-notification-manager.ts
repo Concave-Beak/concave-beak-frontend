@@ -50,10 +50,10 @@ export class ToastNotificationManager {
         toastItem.append(toastElement);
 
         setTimeout(() => {
-            // toastItem.classList.add('fade-out-right');
+            toastItem.classList.add('fade-out-right');
 
             setTimeout(() => {
-                // toastItem.remove();
+                toastItem.remove();
             }, 300); // CSS transition duration
         }, 3000);
     }

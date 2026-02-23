@@ -41,6 +41,20 @@ async function initApp() {
             'toast',
         ),
     );
+    errorHandler.throw(
+        new InternalServerErrorError(
+            'home_page.articles.load',
+            'Could not load article, missing or corrupted dataCould not load article, missing or corrupted dataCould not load article, missing or corrupted dataCould not load article, missing or corrupted dataCould not load article, missing or corrupted data',
+            'toast',
+        ),
+    );
+    errorHandler.throw(
+        new InternalServerErrorError(
+            'home_page.articles.load',
+            'Could not load article, missing or corrupted dataCould not load article, missing or corrupted dataCould not load article, missing or corrupted dataCould not load article, missing or corrupted dataCould not load article, missing or corrupted data',
+            'toast',
+        ),
+    );
 }
 
 document.addEventListener('DOMContentLoaded', initApp);
