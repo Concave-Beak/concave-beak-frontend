@@ -6,8 +6,6 @@ import { loadSavedTheme } from './utils/theme/saved-theme';
 import { FooterComponent } from './components/footer/footer.ts';
 import { HeaderComponent } from './components/header/header.ts';
 import { HomePage } from './features/home-page/home-page.ts';
-import { errorHandler } from './utils/errors/error-handler.ts';
-import { InternalServerErrorError } from './utils/errors/models/internal-server-error-error.ts';
 import { ToastNotificationManager } from './components/toast/notification/toast-notification-manager.ts';
 import { ErrorComponentManager } from './components/error/error-component-manager.ts';
 
@@ -33,28 +31,6 @@ async function initApp() {
     ];
 
     await Promise.all(managers.map((man) => man.init()));
-
-    errorHandler.throw(
-        new InternalServerErrorError(
-            'home_page.articles.load',
-            'Could not load article, missing or corrupted dataCould not load article, missing or corrupted dataCould not load article, missing or corrupted dataCould not load article, missing or corrupted dataCould not load article, missing or corrupted data',
-            'toast',
-        ),
-    );
-    errorHandler.throw(
-        new InternalServerErrorError(
-            'home_page.articles.load',
-            'Could not load article, missing or corrupted dataCould not load article, missing or corrupted dataCould not load article, missing or corrupted dataCould not load article, missing or corrupted dataCould not load article, missing or corrupted data',
-            'toast',
-        ),
-    );
-    errorHandler.throw(
-        new InternalServerErrorError(
-            'home_page.articles.load',
-            'Could not load article, missing or corrupted dataCould not load article, missing or corrupted dataCould not load article, missing or corrupted dataCould not load article, missing or corrupted dataCould not load article, missing or corrupted data',
-            'toast',
-        ),
-    );
 }
 
 document.addEventListener('DOMContentLoaded', initApp);

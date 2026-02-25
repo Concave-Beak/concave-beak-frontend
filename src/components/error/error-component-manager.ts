@@ -25,9 +25,11 @@ export class ErrorComponentManager {
     private handleError(data: { errorObject: object }) {
         const errorObject = data.errorObject as IBaseError;
 
+        // Always prints in the console, in case it's specifies 'console' then
+        // it ONLY gets printed in the console
+        this.printConsole(errorObject);
         switch (errorObject.presentation) {
             case 'console':
-                this.printConsole(errorObject);
                 break;
             case 'toast':
                 this.pushToast(errorObject);

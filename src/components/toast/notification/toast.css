@@ -17,3 +17,25 @@
   height: var(--notification-height);
   min-width: 100%;
 }
+
+.toast-progress-bar {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+
+  position: relative;
+}
+
+.toast-progress-bar-value {
+  animation: progress-load 5s ease-in-out forwards;
+}
+
+@keyframes progress-load {
+  0% {
+    width: 0;
+  }
+
+  100% {
+    width: 100%;
+  }
+}

@@ -55,7 +55,7 @@ export class ToastNotificationManager {
             setTimeout(() => {
                 toastItem.remove();
             }, 300); // CSS transition duration
-        }, 3000);
+        }, 5000);
     }
 
     bindEvents() {

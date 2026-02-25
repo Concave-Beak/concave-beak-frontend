@@ -1,7 +1,7 @@
 /* All of these are indeed hardcoded, and they should remain the same, perhaps
 only change it to variables, but don't try to make it responsive, PLEASE */
 .error-toast-notification {
-  --error-header-text-color: var()
+  --error-toast-color: var()
 }
 
 .error-toast-notification {
@@ -9,16 +9,21 @@ only change it to variables, but don't try to make it responsive, PLEASE */
   width: 100%;
 
   display: flex;
-  padding: 8px;
+  flex-direction: column;
   border-radius: 8px;
   background-color: var(--color-notification-background);
 
-  gap: 2%;
   font-size: 10px;
 }
 
+.error-toast-separator-top {
+  padding: 8px;
+  display: flex;
+  gap: 2%;
+}
+
 .error-toast-class-error {
-  --error-header-text-color: var(--error-color-500);
+  --error-toast-color: var(--error-color-500);
   --error-svg-color: var();
 
   .error-toast-info {
@@ -31,7 +36,7 @@ only change it to variables, but don't try to make it responsive, PLEASE */
 }
 
 .error-toast-class-info {
-  --error-header-text-color: var(--secondary-color-500);
+  --error-toast-color: var(--secondary-color-500);
 
   .error-toast-error {
     display: none;
@@ -43,7 +48,7 @@ only change it to variables, but don't try to make it responsive, PLEASE */
 }
 
 .error-toast-class-warning {
-  --error-header-text-color: var(--warning-color-500);
+  --error-toast-color: var(--warning-color-500);
 
   .error-toast-error {
     display: none;
@@ -58,7 +63,7 @@ only change it to variables, but don't try to make it responsive, PLEASE */
   height: 40px;
   width: 40px;
   border-radius: 50%;
-  background-color: var(--error-header-text-color);
+  background-color: var(--error-toast-color);
 
   display: flex;
   align-items: center;
@@ -87,7 +92,7 @@ only change it to variables, but don't try to make it responsive, PLEASE */
 .error-toast-header {
   font-weight: bold;
   font-size: 13px;
-  color: var(--error-header-text-color);
+  color: var(--error-toast-color);
 
   display: flex;
   gap: 0.5ch;
@@ -100,4 +105,19 @@ only change it to variables, but don't try to make it responsive, PLEASE */
 .error-toast-message {
   overflow: hidden;
   text-overflow: ellipsis;
+}
+
+.error-toast-progress-bar {
+  background-color: var(--color-notification-background);
+  align-self: center;
+  width: 98%;
+  height: 10px;
+  border-radius: 8px;
+}
+
+.error-toast-progress-bar-value {
+  background-color: var(--error-toast-color);
+  border-radius: 8px;
+  width: 100%;
+  height: 100%;
 }
