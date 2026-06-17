@@ -42,15 +42,11 @@
 
 /* Navigation Section */
 .header-nav {
-    display: flex;
     gap: var(--spacing-xs);
-    margin: 0;
-    padding: 0;
 }
 
 .header-nav-item {
-    align-items: center;
-    border-radius: 4px;
+    border-radius: var(--spacing-xs);
     color: var(--color-text);
     padding: var(--spacing-sm) var(--spacing-md);
     text-decoration: none;
@@ -58,20 +54,18 @@
     svg {
         color: var(--color-text);
         fill: var(--color-foreground);
-        height: 24px;
-        transition: fill 0.2s ease;
-        width: auto;
+        height: var(--spacing-lg);
     }
 }
 
 .header-nav-item.shadow-on-hover-light {
     transition:
         background-color 0.2s ease,
-        color 0.2s ease;
+        color 0.2s ease,
 }
 
 @media (max-width: 768px) {
-    .app-header {
+    .header-items {
         flex-direction: column;
         gap: var(--spacing-md);
         padding: var(--spacing-md) var(--container-padding);
@@ -87,19 +81,19 @@
 
     0%,
     100% {
-        transform: rotate(0deg);
+        transform: rotate(-5deg);
     }
 
     25% {
-        transform: rotate(-5deg);
+        transform: rotate(-10deg);
     }
 
     50% {
-        transform: rotate(5deg);
+        transform: rotate(10deg);
     }
 
     75% {
-        transform: rotate(-5deg);
+        transform: rotate(-15deg);
     }
 }
 
