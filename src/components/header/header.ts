@@ -1,4 +1,5 @@
 import headerTemplate from './header.template.html?raw';
+import { templateLoader } from '../../utils/templating/template-loader'
 import './header.css';
 import { ThemeButtonComponent } from './theme-button/theme-button';
 import {
@@ -6,9 +7,21 @@ import {
     type EventManagerUnsubscribeFunction,
 } from '../../utils/events/event-manager';
 
+import logoSvg from "/concave-beak-open.svg?raw"
+import lucideCodeIcon from "/lucide-code-icon.svg?raw"
+import lucideMoonIcon from "/lucide-moon-icon.svg?raw"
+import lucideSunIcon from "/lucide-sun-icon.svg?raw"
+
 const LOGO_SPIN_CHANCE = 3;
 const LOGO_SPIN_TIMEOUT = 1000;
 const LOGO_SHAKE_TIMEOUT = 500;
+
+const HEADER_TEMPLATE_DATA: Record<string, unknown> = {
+    logoSvg: logoSvg,
+    lucideCodeIcon: lucideCodeIcon,
+    lucideMoonIcon: lucideMoonIcon,
+    lucideSunIcon: lucideSunIcon
+};
 
 export class HeaderComponent {
     private template: string = '';
@@ -32,7 +45,13 @@ export class HeaderComponent {
         if (!container) {
             return;
         }
-        container.innerHTML = this.template;
+
+        const filledElement = templateLoader.fillKeys(
+            this.template,
+            HEADER_TEMPLATE_DATA,
+        );
+
+        container.innerHTML = filledElement;
         this.element = container.firstElementChild as HTMLElement;
     }
 
