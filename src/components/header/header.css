@@ -75,6 +75,10 @@
         width: 100%;
         justify-content: center;
     }
+
+    .header-nav-item {
+        padding: var(--spacing-xs) var(--spacing-sm)
+    }
 }
 
 @keyframes logo-shake {
