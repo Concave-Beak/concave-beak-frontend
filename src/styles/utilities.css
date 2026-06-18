@@ -1,0 +1,56 @@
+.vignette {
+    position: relative;
+    overflow: hidden;
+}
+
+.vignette::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background: radial-gradient(ellipse at center,
+            rgba(0, 0, 0, 0) 40%,
+            rgba(0, 0, 0, 0.6) 100%);
+}
+
+.center-vertically {
+    display: flex;
+    align-items: center;
+}
+
+.flex-row {
+    display: flex;
+    flex-direction: row;
+}
+
+.flex-column {
+    display: flex;
+    flex-direction: column;
+}
+
+.max-width {
+    width: 100vw;
+}
+
+.shadow-on-hover-light {
+    display: inline-flex;
+    padding: 0.5rem;
+    border-radius: 0.5rem;
+    transition: background-color 0.2s ease;
+}
+
+.shadow-on-hover-light:hover {
+    background-color: color-mix(in srgb, var(--color-text) 10%, transparent);
+}
+
+.link-icon {
+    display: inline-flex;
+    line-height: 0;
+}
+
+
+.fade-out-right {
+    opacity: 0;
+    transform: translateX(10vw);
+    transition: opacity 0.3s ease-in, transform 0.3s ease-out;
+}

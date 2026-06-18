@@ -1,11 +1,36 @@
-import "./style.css";
-import { loadFooter } from "./shared/footer.ts";
-import { loadHeader } from "./shared/header.ts";
+import './styles/base.css';
+import './styles/globals.css';
+import './styles/utilities.css';
+import { loadSavedTheme } from './utils/theme/saved-theme';
 
-document.querySelector<HTMLDivElement>("#app")!.innerHTML = `
-  <div id="app-header" class="app-header"></div>
-  <div id="app-footer"></div>
-`;
+import { FooterComponent } from './components/footer/footer.ts';
+import { HeaderComponent } from './components/header/header.ts';
+import { HomePage } from './features/home-page/home-page.ts';
+import { ToastNotificationManager } from './components/toast/notification/toast-notification-manager.ts';
+import { ErrorComponentManager } from './components/error/error-component-manager.ts';
 
-loadHeader();
-loadFooter();
+async function initApp() {
+    document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
+        <div id="app-toast" class="app-toast"></div>
+        <div id="app-header" class="app-header"></div>
+        <div id="home-page-content" class="home-page-content"></div>
+        <div id="app-footer" class="app-footer"></div>`;
+
+    loadSavedTheme();
+
+    const components = [
+        new HeaderComponent(),
+        new FooterComponent(),
+        new HomePage(),
+    ];
+    await Promise.all(components.map((comp) => comp.init()));
+
+    const managers = [
+        new ErrorComponentManager(),
+        new ToastNotificationManager(),
+    ];
+
+    await Promise.all(managers.map((man) => man.init()));
+}
+
+document.addEventListener('DOMContentLoaded', initApp);

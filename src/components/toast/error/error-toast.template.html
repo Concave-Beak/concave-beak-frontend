@@ -1,0 +1,22 @@
+<div class="error-toast-notification {{errorClass}} ">
+    <div class="error-toast-separator-top">
+        <div class="error-toast-separator-left">
+            <div class="error-toast-svg error-toast-info">{{svgInfo}}</div>
+            <div class="error-toast-svg error-toast-warn">{{svgWarn}}</div>
+            <div class="error-toast-svg error-toast-error">{{svgError}}</div>
+        </div>
+        <div class="error-toast-separator-right">
+            <div class="error-toast-header">
+                <div class="error-toast-severity">{{severity}}!</div>
+                <div class="error-toast-context">{{context}}</div>
+            </div>
+
+            <div class="error-toast-message">{{message}} ({{code}})</div>
+        </div>
+    </div>
+    <div class="toast-progress-bar error-toast-progress-bar">
+        <div
+            class="toast-progress-bar-value error-toast-progress-bar-value"
+        ></div>
+    </div>
+</div>

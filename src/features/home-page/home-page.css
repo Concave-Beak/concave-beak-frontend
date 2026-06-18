@@ -1,0 +1,22 @@
+.home-page-content {
+    --hero-height: 90vh;
+    --article-padding-horizontal: calc(var(--container-padding) + 5%);
+    --article-padding-vertical: 5%;
+    --article-gap: 10vh;
+    --article-thumbnail-height: 520px;
+
+    --article-items-max-width: 40%;
+
+    display: flex;
+    flex-direction: column;
+    background-color: var(--color-foreground);
+}
+
+@media (max-width: 768px) {
+    .home-page-content {
+        --article-thumbnail-height: 280px;
+        --article-padding-horizontal: 0px;
+
+        --article-items-max-width: 75%;
+    }
+}
