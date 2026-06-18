@@ -1,0 +1,41 @@
+.app-toast {
+  position: fixed;
+  top: 12.5%;
+  right: 2%;
+
+  width: var(--notification-width);
+
+  display: flex;
+  flex-direction: column;
+
+  z-index: 100;
+
+  gap: 1em;
+}
+
+.toast-item {
+  height: var(--notification-height);
+  min-width: 100%;
+}
+
+.toast-progress-bar {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+
+  position: relative;
+}
+
+.toast-progress-bar-value {
+  animation: progress-load 5s ease-in-out forwards;
+}
+
+@keyframes progress-load {
+  0% {
+    width: 0;
+  }
+
+  100% {
+    width: 100%;
+  }
+}

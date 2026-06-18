@@ -1,3 +1,6 @@
+import { defineConfig } from 'vite'
+import path from 'path'
+
 export default {
   server: {
     host: '0.0.0.0',
@@ -10,5 +13,10 @@ export default {
   },
   optimizeDeps: {
     entries: [],
+  },
+  resolve: {
+    alias: {
+      '@': path.resolve(__dirname, './src')
+    }
   }
 }
